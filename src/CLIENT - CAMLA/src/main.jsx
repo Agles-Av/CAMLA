@@ -1,10 +1,27 @@
-import { StrictMode } from 'react'
+import { StrictMode, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
-import './index.css'
 import App from './App.jsx'
+import { AlertHelper } from './utilities/AlertHelper.js'
+import { AlertProvider, useAlert } from './utilities/AlertProvider.jsx'
+import AuthProvider from './context/AuthProvider.jsx'
+
+const InitAlert = () =>{
+  const alert = useAlert();
+
+  useEffect(() => {
+    AlertHelper.initialize(alert);
+  },[alert]);
+
+  return null;
+}
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <App />
+    <AuthProvider>
+      <AlertProvider>
+        <InitAlert/>
+        <App />
+      </AlertProvider>
+    </AuthProvider>
   </StrictMode>,
 )
