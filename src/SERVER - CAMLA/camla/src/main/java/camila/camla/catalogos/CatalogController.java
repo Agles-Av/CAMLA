@@ -9,10 +9,13 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/camla/catalogos")
 @CrossOrigin(origins = {"*"})
-@RequiredArgsConstructor
 public class CatalogController {
 
     private final CatalogService catalogService;
+
+    public CatalogController(CatalogService catalogService) {
+        this.catalogService = catalogService;
+    }
 
     @GetMapping("/")
     public ResponseEntity<?> getAll() {
