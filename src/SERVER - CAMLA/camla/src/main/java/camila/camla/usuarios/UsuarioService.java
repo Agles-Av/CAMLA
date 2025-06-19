@@ -46,8 +46,6 @@ public class UsuarioService {
             return customResponse.getBadRequest("Usuario ya existe con ese email o username");
         }
 
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        user.setPassword(encoder.encode(user.getPassword()));
         Usuarios saved = usuarioRepository.save(user);
         return customResponse.getCreatedResponse("Usuario creado exitosamente");
     }
@@ -64,11 +62,6 @@ public class UsuarioService {
         user.setEmail(userDetails.getEmail());
         user.setUsername(userDetails.getUsername());
 
-        if (userDetails.getPassword() != null && !userDetails.getPassword().isEmpty()) {
-            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-            user.setPassword(encoder.encode(userDetails.getPassword()));
-        }
-
         Usuarios updated = usuarioRepository.save(user);
         return customResponse.getJSONResponse(updated);
     }
@@ -82,4 +75,11 @@ public class UsuarioService {
         usuarioRepository.deleteById(id);
         return customResponse.getOkResponse("Usuario eliminado exitosamente");
     }
+
+
+    public Usuarios findByEmail(String email) {
+        return usuarioRepository.findByEmail(email).orElse(null);
+    }
+
+
 }
