@@ -3,12 +3,12 @@ import { AlertHelper } from '../utilities/AlertHelper';
 
 const SERVER_URL = import.meta.env.VITE_APP_SERVER_URL;
 
-export const AxiosCLient = axios.create({
+export const AxiosClient = axios.create({
     baseURL: SERVER_URL,
     withCredentials: false
 });
 
-AxiosCLient.interceptors.request.use(
+AxiosClient.interceptors.request.use(
     (request)  => {
         request.headers['Content-Type'] = 'application/json';
         request.headers['Accept'] = 'application/json';
@@ -26,7 +26,7 @@ AxiosCLient.interceptors.request.use(
     }
 );
 
-AxiosCLient.interceptors.response.use(
+AxiosClient.interceptors.response.use(
     (response) => {
         if (response.status === 200) {
             AlertHelper.showAlert('Request successful', 'success');
@@ -37,3 +37,5 @@ AxiosCLient.interceptors.response.use(
         //TODO
     }
 );
+
+export default AxiosClient
