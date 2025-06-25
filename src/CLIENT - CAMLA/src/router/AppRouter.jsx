@@ -8,15 +8,17 @@ import NotFound404 from '../utilities/error-pages/NotFound404'
 const AppRouter = () => {
     //impotaciones con lazy
     const Login = lazy(() => import('../features/access-control/Login'));
+    const Register = lazy(() => import('../features/access-control/UserRegister')); 
+    const RecoverPassword = lazy(() => import('../features/access-control/ResetPasswordView'));
     const UserDashBoard = lazy(() => import('../features/user/UserDashBoard'));
     //manejo de contexto para la auntenticacion
     const { user, token } = useContext(AuthContext);
     //validar token y usuario
     const isAuthenticated = user && token;
-    if (isAuthenticated) {
-        console.log('No hay usuario autenticado o token no válido');
-        return <SpinnerLazy />
-    }
+    // if (!isAuthenticated) {
+    //     console.log('No hay usuario autenticado o token no válido');
+    //     return <SpinnerLazy />
+    // }
 
     const router = createBrowserRouter(
         createRoutesFromElements(
@@ -29,6 +31,24 @@ const AppRouter = () => {
                             {!isAuthenticated ? <Login /> : <Navigate to='/' replace />}
                         </Suspense>
                     }
+                />
+                {/* Ruta de registro */}
+                <Route
+                    path='/register'
+                    element={
+                        <Suspense fallback={<SpinnerLazy />}>
+                            {!isAuthenticated ? <Register /> : <Navigate to='/' replace />}
+                        </Suspense>
+                    }
+                />
+                {/* Ruta de recuperación de contraseña */}
+                <Route
+                path='/reset-password'
+                element={
+                    <Suspense fallback = {<SpinnerLazy/>}>
+                        {!isAuthenticated ? <RecoverPassword /> : <Navigate to='/' replace />}
+                    </Suspense>
+                }
                 />
 
                 {/* Ruta del dashboard del usuario */}
