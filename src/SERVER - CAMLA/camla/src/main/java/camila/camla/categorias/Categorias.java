@@ -33,6 +33,10 @@ public class Categorias {
         this.imagenesRelacionadas = imagenesRelacionadas;
     }
 
+    public Categorias(String nombre) {
+        this.nombre = nombre;
+    }
+
     public Categorias(String nombre, List<Imagenes> imagenesRelacionadas) {
         this.nombre = nombre;
         this.imagenesRelacionadas = imagenesRelacionadas;
