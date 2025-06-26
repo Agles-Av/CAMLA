@@ -17,7 +17,7 @@ public class Catalogos {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 45, nullable = false)
+    @Column(length = 45, nullable = false, unique = true)
     private String nombre;
 
     @Column(columnDefinition = "TEXT")
@@ -28,7 +28,7 @@ public class Catalogos {
 
     @ManyToOne
     @JoinColumn(name="usuario")
-    @JsonIgnoreProperties(value = {"imagenesSubidas", "catalogosSubidos"}, allowSetters = true)
+    @JsonIgnoreProperties(value = {"imagenesSubidas", "catalogosSubidos", "password"}, allowSetters = true)
     private Usuarios usuario;
 
     public Catalogos(String nombre, String contenidoJson, Boolean status, Usuarios usuario) {
