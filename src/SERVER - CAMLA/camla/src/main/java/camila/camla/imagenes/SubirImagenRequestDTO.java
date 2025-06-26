@@ -10,4 +10,5 @@ public class SubirImagenRequestDTO {
     private String nombre;
     private Long usuarioId;
     private Long categoriaId;
+    private Boolean status;
 }
