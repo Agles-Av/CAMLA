@@ -65,6 +65,19 @@ public class ImagenesService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional(rollbackFor = Exception.class)
+    public Optional<ImagenResponseDTO> cambiarStatus(Long id){
+        Optional<Imagenes> imagenOpt = imagenesRepository.findById(id);
+        if (imagenOpt.isPresent()) {
+            Imagenes imagen = imagenOpt.get();
+            // Cambiar el estado de la imagen
+            imagen.setStatus(!imagen.getStatus());
+            Imagenes imagenActualizada = imagenesRepository.save(imagen);
+            return Optional.of(ImagenResponseDTO.fromEntity(imagenActualizada));
+        }
+        return Optional.empty();
+    }
+
     public List<ImagenResponseDTO> obtenerImagenesPorUsuario(Long usuarioId) {
         return imagenesRepository.findByUsuarioIdWithDetails(usuarioId)
                 .stream()

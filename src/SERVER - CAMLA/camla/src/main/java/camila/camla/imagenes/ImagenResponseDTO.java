@@ -13,6 +13,7 @@ public class ImagenResponseDTO {
     private String url;
     private String usuario;
     private String categoria;
+    private Boolean status;
 
     public static ImagenResponseDTO fromEntity(Imagenes imagen) {
         return new ImagenResponseDTO(
@@ -20,7 +21,8 @@ public class ImagenResponseDTO {
                 imagen.getNombre(),
                 imagen.getUrl(),
                 imagen.getUsuario().getNombre(), // Asumiendo que Usuarios tiene campo nombre
-                imagen.getCategoria().getNombre()
+                imagen.getCategoria().getNombre(),
+                imagen.getStatus()
         );
     }
 }

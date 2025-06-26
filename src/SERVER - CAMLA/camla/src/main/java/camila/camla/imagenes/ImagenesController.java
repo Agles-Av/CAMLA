@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/imagenes")
+@RequestMapping("/camla/imagenes")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*")
 public class ImagenesController {
@@ -25,10 +25,10 @@ public class ImagenesController {
             @RequestParam("archivo") MultipartFile archivo,
             @RequestParam("nombre") String nombre,
             @RequestParam("id") Long usuarioId,
-            @RequestParam("id") Long categoriaId) {
+            @RequestParam("id") Long categoriaId, @RequestParam("status") Boolean status) {
 
         try {
-            SubirImagenRequestDTO request = new SubirImagenRequestDTO(nombre, usuarioId, categoriaId);
+            SubirImagenRequestDTO request = new SubirImagenRequestDTO(nombre, usuarioId, categoriaId, status);
             ImagenResponseDTO response = imagenesService.subirImagen(archivo, request);
 
             return ResponseEntity.status(HttpStatus.CREATED).body(Map.of(
@@ -98,6 +98,29 @@ public class ImagenesController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of(
                     "success", false,
                     "message", "Error al obtener las imágenes del usuario: " + e.getMessage()
+            ));
+        }
+    }
+
+    @PatchMapping("/status/{id}")
+    public ResponseEntity<Map<String, Object>> cambiarStatusImagen(@PathVariable Long id) {
+        try {
+            var imagenActualizada = imagenesService.cambiarStatus(id);
+
+            if (imagenActualizada.isPresent()) {
+                return ResponseEntity.ok(Map.of(
+                        "success", true,
+                        "message", "Estado de la imagen actualizado exitosamente",
+                        "data", imagenActualizada.get()
+                ));
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of(
+                    "success", false,
+                    "message", "Error al cambiar el estado de la imagen: " + e.getMessage()
             ));
         }
     }

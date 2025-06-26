@@ -34,6 +34,26 @@ public class Imagenes {
     @JsonIgnoreProperties(value = {"imagenesRelacionadas"}, allowSetters = true)
     private Categorias categoria;
 
+    @Column(columnDefinition = "BOOL DEFAULT true")
+    private Boolean status; // True = puplico, False = privado
+
+    public Imagenes(String nombre, String url, Usuarios usuario, Categorias categoria, Boolean status) {
+        this.nombre = nombre;
+        this.url = url;
+        this.usuario = usuario;
+        this.categoria = categoria;
+        this.status = status;
+    }
+
+    public Imagenes(Long id, String nombre, String url, Usuarios usuario, Categorias categoria, Boolean status) {
+        this.id = id;
+        this.nombre = nombre;
+        this.url = url;
+        this.usuario = usuario;
+        this.categoria = categoria;
+        this.status = status;
+    }
+
     public Imagenes(Long id, String nombre, String url, Usuarios usuario, Categorias categoria) {
         this.id = id;
         this.nombre = nombre;
