@@ -3,6 +3,7 @@ package camila.camla.auth;
 import camila.camla.usuarios.Usuarios;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -26,5 +27,12 @@ public class AuthController {
     public ResponseEntity<?> register(@RequestBody Usuarios nuevoUsuario) {
         return authService.register(nuevoUsuario);
     }
+
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout() {
+        SecurityContextHolder.clearContext();
+        return ResponseEntity.ok("Sesión cerrada correctamente");
+    }
+
 }
 
