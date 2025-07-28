@@ -10,11 +10,20 @@ export const AxiosClient = axios.create({
 
 AxiosClient.interceptors.request.use(
     (request)  => {
-        request.headers['Content-Type'] = 'application/json';
+        if (request.data instanceof FormData) {
+            console.log("Ano");
+            
+      // Axios va a poner el Content-Type correcto, incluyendo el boundary
+    } else {
+      // Si es un objeto normal, ponelo a mano
+      console.log("JSON");
+      
+      request.headers['Content-Type'] = 'application/json';
+    }
         request.headers['Accept'] = 'application/json';
         request.headers['Access-Control-Allow-Origin'] = '*'; // cambiar esto para produccion
 
-        const session = JSON.parse(localStorage.getItem('token')) || null;
+        const session = localStorage.getItem('token') || null;
         if (session){
             request.headers['Authorization'] = `Bearer ${session}`;
         }
@@ -34,7 +43,11 @@ AxiosClient.interceptors.response.use(
         return response;
     },
     (error) => {
-        //TODO
+         console.log("log en axios",error);
+         
+    const message = error.response?.data || 'Ocurrió un error inesperado.';
+    AlertHelper.showAlert(message, 'error');
+    return Promise.reject(error);
     }
 );
 

@@ -12,9 +12,6 @@ import java.util.List;
 
 @Entity
 @Table(name ="usuarios")
-@NoArgsConstructor
-@Getter
-@Setter
 public class Usuarios {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -71,5 +68,64 @@ public class Usuarios {
         this.username = username;
         this.imagenesSubidas = imagenesSubidas;
         this.catalogosSubidos = catalogosSubidos;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public List<Imagenes> getImagenesSubidas() {
+        return imagenesSubidas;
+    }
+
+    public void setImagenesSubidas(List<Imagenes> imagenesSubidas) {
+        this.imagenesSubidas = imagenesSubidas;
+    }
+
+    public List<Catalogos> getCatalogosSubidos() {
+        return catalogosSubidos;
+    }
+
+    public void setCatalogosSubidos(List<Catalogos> catalogosSubidos) {
+        this.catalogosSubidos = catalogosSubidos;
+    }
+
+    public Usuarios() {
     }
 }

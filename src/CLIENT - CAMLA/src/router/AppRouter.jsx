@@ -8,9 +8,10 @@ import NotFound404 from '../utilities/error-pages/NotFound404'
 const AppRouter = () => {
     //impotaciones con lazy
     const Login = lazy(() => import('../features/access-control/Login'));
-    const Register = lazy(() => import('../features/access-control/UserRegister')); 
+    const Register = lazy(() => import('../features/access-control/UserRegister'));
     const RecoverPassword = lazy(() => import('../features/access-control/ResetPasswordView'));
-    const UserDashBoard = lazy(() => import('../features/user/UserDashBoard'));
+    const DashboardView = lazy(() => import('../features/components/DashboardView'));
+    const LayoutImages = lazy(() => import('../features/components/LayaoutImages'))
     //manejo de contexto para la auntenticacion
     const { user, token } = useContext(AuthContext);
     //validar token y usuario
@@ -43,12 +44,12 @@ const AppRouter = () => {
                 />
                 {/* Ruta de recuperación de contraseña */}
                 <Route
-                path='/reset-password'
-                element={
-                    <Suspense fallback = {<SpinnerLazy/>}>
-                        {!isAuthenticated ? <RecoverPassword /> : <Navigate to='/' replace />}
-                    </Suspense>
-                }
+                    path='/reset-password'
+                    element={
+                        <Suspense fallback={<SpinnerLazy />}>
+                            {!isAuthenticated ? <RecoverPassword /> : <Navigate to='/' replace />}
+                        </Suspense>
+                    }
                 />
 
                 {/* Ruta del dashboard del usuario */}
@@ -56,10 +57,13 @@ const AppRouter = () => {
                     path='/'
                     element={
                         <Suspense fallback={<SpinnerLazy />}>
-                            {isAuthenticated ? <UserDashBoard /> : <Navigate to='/login' replace />}
+                           {isAuthenticated ? <DashboardView /> : <Navigate to='/login' replace />} 
                         </Suspense>
                     }
-                />
+
+                >
+              
+                </Route>
 
                 {/* Ruta de error 404 */}
                 <Route
