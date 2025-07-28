@@ -66,7 +66,7 @@ export const logoutUser = async () => {
   try {
     const response = await AxiosClient.post("/auth/logout")
 
-    // Limpiar localStorage
+    // Limpiar localStorage 
     localStorage.removeItem("token")
     localStorage.removeItem("user")
 
