@@ -66,12 +66,15 @@ public class ImagenesService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public Optional<ImagenResponseDTO> cambiarStatus(Long id){
+    public Optional<ImagenResponseDTO> cambiarStatus(Long id) {
         Optional<Imagenes> imagenOpt = imagenesRepository.findById(id);
         if (imagenOpt.isPresent()) {
             Imagenes imagen = imagenOpt.get();
-            // Cambiar el estado de la imagen
-            imagen.setStatus(!imagen.getStatus());
+
+            Boolean estadoActual = imagen.getStatus() != null ? imagen.getStatus() : false;
+
+            imagen.setStatus(!estadoActual);
+
             Imagenes imagenActualizada = imagenesRepository.save(imagen);
             return Optional.of(ImagenResponseDTO.fromEntity(imagenActualizada));
         }
