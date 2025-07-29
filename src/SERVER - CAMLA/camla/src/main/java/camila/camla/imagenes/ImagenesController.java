@@ -24,8 +24,8 @@ public class ImagenesController {
     public ResponseEntity<?> subirImagen(
             @RequestParam("archivo") MultipartFile archivo,
             @RequestParam("nombre") String nombre,
-            @RequestParam("id") Long usuarioId,
-            @RequestParam("id") Long categoriaId, @RequestParam("status") Boolean status) {
+            @RequestParam("usuarioId") Long usuarioId,
+            @RequestParam("categoriaId") Long categoriaId, @RequestParam("status") Boolean status) {
 
         try {
             SubirImagenRequestDTO request = new SubirImagenRequestDTO(nombre, usuarioId, categoriaId, status);
