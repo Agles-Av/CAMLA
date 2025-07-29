@@ -70,6 +70,8 @@ const CatalogCards = ({ catalogs, isLoading, onEdit, onRefresh }) => {
       }
 
       const response = await createCatalog(catalogData)
+      console.log("Verificar el ID lo traiga",response.id);
+      
 
       AlertHelper.showAlert("Catálogo creado correctamente","success")
       setShowCreateModal(false)
@@ -158,15 +160,15 @@ const CatalogCards = ({ catalogs, isLoading, onEdit, onRefresh }) => {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {catalogs.map((catalog) => (
-            <Card key={catalog.id} className="hover:shadow-lg transition-shadow duration-200">
+            <Card key={catalog.id} className="bg-gradient-to-r from-purple-900 to-blue-900 hover:from-purple-800 hover:to-blue-800">
               <div className="flex justify-between items-start mb-4">
                 <div className="flex-1">
-                  <h3 className="text-lg font-semibold text-gray-800 mb-2 truncate" title={catalog.nombre}>
+                  <h3 className="text-lg font-semibold text-white mb-2 truncate" title={catalog.nombre}>
                     {catalog.nombre}
                   </h3>
                   <div className="flex items-center space-x-2 mb-2">
                     <Badge color={catalog.status ? "success" : "gray"}>{catalog.status ? "Público" : "Privado"}</Badge>
-                    <span className="text-sm text-gray-500">
+                    <span className="text-sm text-gray-100">
                       {JSON.parse(catalog.contenidoJson || '{"pages":[]}').pages?.length || 0} páginas
                     </span>
                   </div>
@@ -205,7 +207,7 @@ const CatalogCards = ({ catalogs, isLoading, onEdit, onRefresh }) => {
               <div className="bg-gray-100 rounded-lg h-32 mb-4 flex items-center justify-center overflow-hidden">
                 <img
                   src={
-                    catalog.thumbnail || `/placeholder.svg?height=128&width=200&query=catalog+preview+${catalog.nombre}`
+                    `/preview.png`
                   }
                   alt={`Preview de ${catalog.nombre}`}
                   className="max-h-full max-w-full object-contain rounded"
@@ -214,16 +216,8 @@ const CatalogCards = ({ catalogs, isLoading, onEdit, onRefresh }) => {
 
               {/* Toggle público/privado */}
               <div className="flex items-center justify-between mb-2">
-                <span className="text-sm text-gray-600">Estado público:</span>
+                <span className="text-sm text-gray-100">Estado público:</span>
                 <ToggleSwitch checked={catalog.status} onChange={(checked) => handleToggleStatus(catalog, checked)} />
-              </div>
-
-              {/* Información adicional */}
-              <div className="text-xs text-gray-500 space-y-1">
-                <div>Creado: {new Date(catalog.fechaCreacion).toLocaleDateString()}</div>
-                {catalog.fechaModificacion && (
-                  <div>Modificado: {new Date(catalog.fechaModificacion).toLocaleDateString()}</div>
-                )}
               </div>
             </Card>
           ))}
@@ -302,8 +296,7 @@ const CatalogCards = ({ catalogs, isLoading, onEdit, onRefresh }) => {
                     >
                       <img
                         src={
-                          template.thumbnail ||
-                          `/placeholder.svg?height=100&width=150&query=template+${template.nombre || "/placeholder.svg"}`
+                          '/preview.png'
                         }
                         alt={template.nombre}
                         className="w-full h-20 object-cover rounded mb-2"

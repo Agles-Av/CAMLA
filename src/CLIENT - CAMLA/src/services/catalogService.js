@@ -49,7 +49,7 @@ export const getCatalogById = async (catalogId) => {
 export const createCatalog = async (catalogData) => {
   try {
     const response = await AxiosClient.post("/catalogos/", catalogData)
-    return response.data
+    return response.data.data
   } catch (error) {
     throw error
   }
@@ -62,6 +62,8 @@ export const createCatalog = async (catalogData) => {
  * @returns {Promise} Respuesta del servidor
  */
 export const updateCatalog = async (catalogId, catalogData) => {
+  console.log("Data de catalogData",catalogData);
+  
   try {
     const response = await AxiosClient.put(`/catalogos/${catalogId}`, catalogData)
     return response.data
