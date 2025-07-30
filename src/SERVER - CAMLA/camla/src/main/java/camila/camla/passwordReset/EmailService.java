@@ -14,7 +14,7 @@ public class EmailService {
     private JavaMailSender mailSender;
 
     public void sendResetPasswordEmail(String to, String token) throws MessagingException {
-        String link = "http://localhost:3000/reset-password?token=" + token; // Cambia el frontend
+        String link = "http://localhost:5173/reset-password?token=" + token; // Cambia el frontend
         String subject = "Recuperación de contraseña";
         String body = "Haz clic en el siguiente enlace para restablecer tu contraseña:\n\n" + link;
 

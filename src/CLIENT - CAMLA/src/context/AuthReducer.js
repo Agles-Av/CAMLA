@@ -5,7 +5,7 @@ export const AuthReducer = (
     },
     action
 ) => {
-    switch(action.typr){
+    switch(action.type){
         case "LOGIN":
             return {
                 ...state,
