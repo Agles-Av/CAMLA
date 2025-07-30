@@ -11,6 +11,7 @@ const AppRouter = () => {
     const Register = lazy(() => import('../features/access-control/UserRegister'));
     const RecoverPassword = lazy(() => import('../features/access-control/ResetPasswordView'));
     const DashboardView = lazy(() => import('../features/components/DashboardView'));
+    const EditorView = lazy(() => import('../features/editor/EditorView'))
     const LayoutImages = lazy(() => import('../features/components/LayaoutImages'))
     //manejo de contexto para la auntenticacion
     const { user, token } = useContext(AuthContext);
@@ -64,6 +65,14 @@ const AppRouter = () => {
                 >
               
                 </Route>
+                <Route 
+                path='/editor/:catalogId'
+                element={
+                    <Suspense fallback={<SpinnerLazy/>}>
+                        {isAuthenticated ? <EditorView/> : <Navigate to='/' replace />}
+                    </Suspense>
+                }
+                />
 
                 {/* Ruta de error 404 */}
                 <Route
