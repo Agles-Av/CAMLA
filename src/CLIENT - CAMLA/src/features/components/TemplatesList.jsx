@@ -65,11 +65,11 @@ const TemplatesList = ({ templates, isLoading, onRefresh }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
       {templates.map((template) => (
-        <Card key={template.id} className="hover:shadow-lg transition-shadow duration-200">
+        <Card key={template.id} className="bg-gradient-to-r from-purple-900 to-blue-900 hover:from-purple-800 hover:to-blue-800">
           {/* Preview de la plantilla */}
           <div className="bg-gray-100 rounded-lg h-32 mb-4 flex items-center justify-center overflow-hidden">
             <img
-              src={template.thumbnail || `/placeholder.svg?height=128&width=200&query=template+${template.nombre}`}
+              src={'/preview.png'}
               alt={`Preview de ${template.nombre}`}
               className="max-h-full max-w-full object-contain rounded"
             />
@@ -78,10 +78,10 @@ const TemplatesList = ({ templates, isLoading, onRefresh }) => {
           {/* Información de la plantilla */}
           <div className="space-y-3">
             <div>
-              <h3 className="text-lg font-semibold text-gray-800 truncate" title={template.nombre}>
+              <h3 className="text-lg font-semibold text-white truncate" title={template.nombre}>
                 {template.nombre}
               </h3>
-              <p className="text-sm text-gray-600 line-clamp-2 mt-1">
+              <p className="text-sm text-gray-100 line-clamp-2 mt-1">
                 {template.descripcion || "Plantilla prediseñada para crear catálogos profesionales"}
               </p>
             </div>
@@ -97,7 +97,7 @@ const TemplatesList = ({ templates, isLoading, onRefresh }) => {
             </Button>
 
             {/* Información adicional */}
-            <div className="text-xs text-gray-500">
+            <div className="text-xs text-gray-200">
               <div>Categoría: {template.categoria?.nombre || "General"}</div>
               {template.fechaCreacion && <div>Creada: {new Date(template.fechaCreacion).toLocaleDateString()}</div>}
             </div>

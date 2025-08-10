@@ -37,7 +37,7 @@ public class CategoriasController {
         }
     }
 
-    @GetMapping
+    @GetMapping("/")
     public ResponseEntity<Map<String, Object>> obtenerTodasLasCategorias() {
         try {
             List<CategoriaResponseDTO> categorias = categoriaService.obtenerTodasLasCategorias();
