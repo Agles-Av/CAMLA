@@ -67,7 +67,7 @@ const DashboardView = () => {
     loadTemplates()
   }, [])
 
-  // Función para refrescar catálogos
+  // Función para refrescar catálogos 
   const handleRefreshCatalogs = () => {
     setRefreshTrigger((prev) => prev + 1)
   }
