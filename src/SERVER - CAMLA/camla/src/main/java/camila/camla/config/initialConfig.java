@@ -85,260 +85,136 @@ public class initialConfig implements CommandLineRunner {
         Categorias categoria10 = getOrSaveCategoria(new Categorias("Automotriz"));
         Categorias categoria11 = getOrSaveCategoria(new Categorias("Mascotas"));
 
-        Plantilla plantilla1 = getOrSavePlantilla(new Plantilla("Plantilla 1", "{\n" +
-                "  \"nombre\": \"Plantilla Catálogo de Precios\",\n" +
-                "  \"descripcion\": \"Plantilla moderna para mostrar productos con precio, nombre, descripción y estilo limpio.\",\n" +
-                "  \"paginas\": [\n" +
+        // 🎨 Plantilla 1 - Barra azul con texto
+        String plantilla1 = "{\n" +
+                "  \"pages\": [\n" +
                 "    {\n" +
-                "      \"fondo\": \"#F5F5F5\",\n" +
-                "      \"elementos\": [\n" +
+                "      \"id\": 1,\n" +
+                "      \"elements\": [\n" +
                 "        {\n" +
-                "          \"tipo\": \"texto\",\n" +
-                "          \"contenido\": \"Nuestros productos destacados\",\n" +
-                "          \"estilo\": {\n" +
-                "            \"fuente\": \"Montserrat\",\n" +
-                "            \"tamano\": 32,\n" +
-                "            \"color\": \"#2E2E2E\",\n" +
-                "            \"negrita\": true,\n" +
-                "            \"alineacion\": \"centro\"\n" +
-                "          },\n" +
-                "          \"posicion\": { \"x\": 100, \"y\": 40 },\n" +
-                "          \"dimension\": { \"ancho\": 500, \"alto\": 60 }\n" +
+                "          \"id\": 101,\n" +
+                "          \"type\": \"shape\",\n" +
+                "          \"data\": {\"shapeType\": \"rectangle\", \"fillColor\": \"#3B82F6\", \"borderColor\": \"#1E40AF\", \"borderWidth\": 2, \"borderRadius\": 8},\n" +
+                "          \"position\": {\"x\": 0, \"y\": 0},\n" +
+                "          \"size\": {\"width\": \"1100px\", \"height\": \"80px\"},\n" +
+                "          \"rotation\": 0, \"opacity\": 1\n" +
                 "        },\n" +
                 "        {\n" +
-                "          \"tipo\": \"card\",\n" +
-                "          \"titulo\": \"Producto 1\",\n" +
-                "          \"descripcion\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit.\",\n" +
-                "          \"precio\": \"$199.99\",\n" +
-                "          \"imagen\": \"https://tubanco.com/imagenes/producto1.png\",\n" +
-                "          \"estilo\": {\n" +
-                "            \"colorFondo\": \"#FFFFFF\",\n" +
-                "            \"bordeColor\": \"#DDDDDD\",\n" +
-                "            \"bordeGrosor\": 2,\n" +
-                "            \"bordeRadio\": 12\n" +
-                "          },\n" +
-                "          \"posicion\": { \"x\": 80, \"y\": 130 },\n" +
-                "          \"dimension\": { \"ancho\": 250, \"alto\": 350 }\n" +
-                "        },\n" +
-                "        {\n" +
-                "          \"tipo\": \"card\",\n" +
-                "          \"titulo\": \"Producto 2\",\n" +
-                "          \"descripcion\": \"Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\",\n" +
-                "          \"precio\": \"$299.00\",\n" +
-                "          \"imagen\": \"https://tubanco.com/imagenes/producto2.png\",\n" +
-                "          \"estilo\": {\n" +
-                "            \"colorFondo\": \"#FFFFFF\",\n" +
-                "            \"bordeColor\": \"#DDDDDD\",\n" +
-                "            \"bordeGrosor\": 2,\n" +
-                "            \"bordeRadio\": 12\n" +
-                "          },\n" +
-                "          \"posicion\": { \"x\": 360, \"y\": 130 },\n" +
-                "          \"dimension\": { \"ancho\": 250, \"alto\": 350 }\n" +
-                "        },\n" +
-                "        {\n" +
-                "          \"tipo\": \"texto\",\n" +
-                "          \"contenido\": \"¡Aprovecha nuestras ofertas por tiempo limitado!\",\n" +
-                "          \"estilo\": {\n" +
-                "            \"fuente\": \"Montserrat\",\n" +
-                "            \"tamano\": 20,\n" +
-                "            \"color\": \"#FF5722\",\n" +
-                "            \"negrita\": true,\n" +
-                "            \"alineacion\": \"centro\"\n" +
-                "          },\n" +
-                "          \"posicion\": { \"x\": 100, \"y\": 510 },\n" +
-                "          \"dimension\": { \"ancho\": 500, \"alto\": 40 }\n" +
+                "          \"id\": 102,\n" +
+                "          \"type\": \"text\",\n" +
+                "          \"data\": {\"text\": \"Encabezado Azul\", \"fontSize\": 30, \"fontFamily\": \"Arial\", \"color\": \"#FFFFFF\"},\n" +
+                "          \"position\": {\"x\": 20, \"y\": 20},\n" +
+                "          \"size\": {\"width\": \"500px\", \"height\": \"40px\"},\n" +
+                "          \"rotation\": 0, \"opacity\": 1\n" +
                 "        }\n" +
-                "      ]\n" +
+                "      ],\n" +
+                "      \"background\": {\"type\": \"color\", \"value\": \"#E5E7EB\"}\n" +
                 "    }\n" +
                 "  ]\n" +
-                "}\nDescripción de la plantilla 1"));
+                "}";
 
-        Plantilla plantilla2 = getOrSavePlantilla(new Plantilla("Plantilla 2", "{\n" +
-                "  \"nombre\": \"Plantilla Servicios Premium\",\n" +
-                "  \"descripcion\": \"Plantilla limpia para destacar servicios con íconos, descripción y precio\",\n" +
-                "  \"paginas\": [\n" +
+// 🌿 Plantilla 2 - Fondo verde con texto centrado
+        String plantilla2 = "{\n" +
+                "  \"pages\": [\n" +
                 "    {\n" +
-                "      \"fondo\": \"#FFFFFF\",\n" +
-                "      \"elementos\": [\n" +
+                "      \"id\": 2,\n" +
+                "      \"elements\": [\n" +
                 "        {\n" +
-                "          \"tipo\": \"texto\",\n" +
-                "          \"contenido\": \"Nuestros Servicios Más Solicitados\",\n" +
-                "          \"estilo\": {\n" +
-                "            \"fuente\": \"Poppins\",\n" +
-                "            \"tamano\": 28,\n" +
-                "            \"color\": \"#212121\",\n" +
-                "            \"negrita\": true,\n" +
-                "            \"alineacion\": \"centro\"\n" +
-                "          },\n" +
-                "          \"posicion\": { \"x\": 60, \"y\": 30 },\n" +
-                "          \"dimension\": { \"ancho\": 580, \"alto\": 50 }\n" +
-                "        },\n" +
-                "        {\n" +
-                "          \"tipo\": \"servicio\",\n" +
-                "          \"nombre\": \"Masaje Relajante\",\n" +
-                "          \"descripcion\": \"Sesión de 60 minutos con aceites esenciales y música ambiental.\",\n" +
-                "          \"precio\": \"$350\",\n" +
-                "          \"icono\": \"https://firebasestorage.googleapis.com/iconos/masaje.png\",\n" +
-                "          \"estilo\": {\n" +
-                "            \"colorFondo\": \"#F9F9F9\",\n" +
-                "            \"bordeColor\": \"#E0E0E0\",\n" +
-                "            \"bordeRadio\": 10\n" +
-                "          },\n" +
-                "          \"posicion\": { \"x\": 60, \"y\": 120 },\n" +
-                "          \"dimension\": { \"ancho\": 600, \"alto\": 100 }\n" +
-                "        },\n" +
-                "        {\n" +
-                "          \"tipo\": \"servicio\",\n" +
-                "          \"nombre\": \"Corte de Cabello + Barba\",\n" +
-                "          \"descripcion\": \"Estilizado profesional y perfilado completo.\",\n" +
-                "          \"precio\": \"$250\",\n" +
-                "          \"icono\": \"https://firebasestorage.googleapis.com/iconos/barberia.png\",\n" +
-                "          \"estilo\": {\n" +
-                "            \"colorFondo\": \"#F0F0F0\",\n" +
-                "            \"bordeColor\": \"#BDBDBD\",\n" +
-                "            \"bordeRadio\": 10\n" +
-                "          },\n" +
-                "          \"posicion\": { \"x\": 60, \"y\": 240 },\n" +
-                "          \"dimension\": { \"ancho\": 600, \"alto\": 100 }\n" +
-                "        },\n" +
-                "        {\n" +
-                "          \"tipo\": \"servicio\",\n" +
-                "          \"nombre\": \"Manicure & Pedicure\",\n" +
-                "          \"descripcion\": \"Hidratación profunda, limado, color, masaje y decoración.\",\n" +
-                "          \"precio\": \"$300\",\n" +
-                "          \"icono\": \"https://firebasestorage.googleapis.com/iconos/manicure.png\",\n" +
-                "          \"estilo\": {\n" +
-                "            \"colorFondo\": \"#FFF8F8\",\n" +
-                "            \"bordeColor\": \"#FFCDD2\",\n" +
-                "            \"bordeRadio\": 10\n" +
-                "          },\n" +
-                "          \"posicion\": { \"x\": 60, \"y\": 360 },\n" +
-                "          \"dimension\": { \"ancho\": 600, \"alto\": 100 }\n" +
+                "          \"id\": 201,\n" +
+                "          \"type\": \"text\",\n" +
+                "          \"data\": {\"text\": \"Bienvenido\", \"fontSize\": 50, \"fontFamily\": \"Verdana\", \"color\": \"#FFFFFF\", \"textAlign\": \"center\"},\n" +
+                "          \"position\": {\"x\": 400, \"y\": 200},\n" +
+                "          \"size\": {\"width\": \"400px\", \"height\": \"60px\"},\n" +
+                "          \"rotation\": 0, \"opacity\": 1\n" +
                 "        }\n" +
-                "      ]\n" +
+                "      ],\n" +
+                "      \"background\": {\"type\": \"color\", \"value\": \"#10B981\"}\n" +
                 "    }\n" +
                 "  ]\n" +
-                "}\n"));
+                "}";
 
-        Catalogos catalogo1 = getOrSaveCatalog(new Catalogos("Primer Catalogo", "{\n" +
-                "  \"nombre\": \"Catálogo de Ejemplo - Spa Relax\",\n" +
-                "  \"descripcion\": \"Plantilla predeterminada con servicios y diseño minimalista para centros de spa y estética\",\n" +
-                "  \"paginas\": [\n" +
+// ❤️ Plantilla 3 - Rectángulo rojo y texto blanco
+        String plantilla3 = "{\n" +
+                "  \"pages\": [\n" +
                 "    {\n" +
-                "      \"fondo\": \"#FAFAFA\",\n" +
-                "      \"elementos\": [\n" +
+                "      \"id\": 3,\n" +
+                "      \"elements\": [\n" +
                 "        {\n" +
-                "          \"tipo\": \"texto\",\n" +
-                "          \"contenido\": \"Spa & Bienestar\",\n" +
-                "          \"estilo\": {\n" +
-                "            \"fuente\": \"Playfair Display\",\n" +
-                "            \"tamano\": 40,\n" +
-                "            \"color\": \"#3E3E3E\",\n" +
-                "            \"negrita\": true,\n" +
-                "            \"alineacion\": \"centro\"\n" +
-                "          },\n" +
-                "          \"posicion\": { \"x\": 100, \"y\": 40 },\n" +
-                "          \"dimension\": { \"ancho\": 500, \"alto\": 60 }\n" +
+                "          \"id\": 301,\n" +
+                "          \"type\": \"shape\",\n" +
+                "          \"data\": {\"shapeType\": \"rectangle\", \"fillColor\": \"#EF4444\", \"borderColor\": \"#B91C1C\", \"borderWidth\": 3, \"borderRadius\": 0},\n" +
+                "          \"position\": {\"x\": 100, \"y\": 100},\n" +
+                "          \"size\": {\"width\": \"900px\", \"height\": \"300px\"},\n" +
+                "          \"rotation\": 0, \"opacity\": 1\n" +
                 "        },\n" +
                 "        {\n" +
-                "          \"tipo\": \"imagen\",\n" +
-                "          \"url\": \"https://firebasestorage.googleapis.com/spa-cover.jpg\",\n" +
-                "          \"posicion\": { \"x\": 80, \"y\": 120 },\n" +
-                "          \"dimension\": { \"ancho\": 540, \"alto\": 300 }\n" +
-                "        },\n" +
-                "        {\n" +
-                "          \"tipo\": \"texto\",\n" +
-                "          \"contenido\": \"Descubre nuestros servicios de relajación corporal, faciales y masajes.\",\n" +
-                "          \"estilo\": {\n" +
-                "            \"fuente\": \"Roboto\",\n" +
-                "            \"tamano\": 18,\n" +
-                "            \"color\": \"#4A4A4A\"\n" +
-                "          },\n" +
-                "          \"posicion\": { \"x\": 100, \"y\": 440 },\n" +
-                "          \"dimension\": { \"ancho\": 500, \"alto\": 50 }\n" +
+                "          \"id\": 302,\n" +
+                "          \"type\": \"text\",\n" +
+                "          \"data\": {\"text\": \"Oferta Especial\", \"fontSize\": 40, \"fontFamily\": \"Tahoma\", \"color\": \"#FFFFFF\"},\n" +
+                "          \"position\": {\"x\": 130, \"y\": 220},\n" +
+                "          \"size\": {\"width\": \"500px\", \"height\": \"50px\"},\n" +
+                "          \"rotation\": 0, \"opacity\": 1\n" +
                 "        }\n" +
-                "      ]\n" +
-                "    },\n" +
-                "    {\n" +
-                "      \"fondo\": \"#FFFFFF\",\n" +
-                "      \"elementos\": [\n" +
-                "        {\n" +
-                "          \"tipo\": \"texto\",\n" +
-                "          \"contenido\": \"Servicios Destacados\",\n" +
-                "          \"estilo\": {\n" +
-                "            \"fuente\": \"Poppins\",\n" +
-                "            \"tamano\": 28,\n" +
-                "            \"color\": \"#212121\",\n" +
-                "            \"negrita\": true\n" +
-                "          },\n" +
-                "          \"posicion\": { \"x\": 60, \"y\": 30 },\n" +
-                "          \"dimension\": { \"ancho\": 580, \"alto\": 50 }\n" +
-                "        },\n" +
-                "        {\n" +
-                "          \"tipo\": \"servicio\",\n" +
-                "          \"nombre\": \"Masaje Sueco\",\n" +
-                "          \"descripcion\": \"Alivia el estrés y mejora la circulación.\",\n" +
-                "          \"precio\": \"$399\",\n" +
-                "          \"icono\": \"https://firebasestorage.googleapis.com/iconos/masaje.png\",\n" +
-                "          \"posicion\": { \"x\": 60, \"y\": 100 },\n" +
-                "          \"dimension\": { \"ancho\": 600, \"alto\": 90 }\n" +
-                "        },\n" +
-                "        {\n" +
-                "          \"tipo\": \"servicio\",\n" +
-                "          \"nombre\": \"Limpieza Facial Profunda\",\n" +
-                "          \"descripcion\": \"Tratamiento renovador de piel con productos naturales.\",\n" +
-                "          \"precio\": \"$299\",\n" +
-                "          \"icono\": \"https://firebasestorage.googleapis.com/iconos/facial.png\",\n" +
-                "          \"posicion\": { \"x\": 60, \"y\": 210 },\n" +
-                "          \"dimension\": { \"ancho\": 600, \"alto\": 90 }\n" +
-                "        },\n" +
-                "        {\n" +
-                "          \"tipo\": \"servicio\",\n" +
-                "          \"nombre\": \"Terapia de Aromas\",\n" +
-                "          \"descripcion\": \"Sesión de 45 minutos con aceites esenciales.\",\n" +
-                "          \"precio\": \"$349\",\n" +
-                "          \"icono\": \"https://firebasestorage.googleapis.com/iconos/aromas.png\",\n" +
-                "          \"posicion\": { \"x\": 60, \"y\": 320 },\n" +
-                "          \"dimension\": { \"ancho\": 600, \"alto\": 90 }\n" +
-                "        }\n" +
-                "      ]\n" +
-                "    },\n" +
-                "    {\n" +
-                "      \"fondo\": \"#F7F7F7\",\n" +
-                "      \"elementos\": [\n" +
-                "        {\n" +
-                "          \"tipo\": \"texto\",\n" +
-                "          \"contenido\": \"¡Reserva tu cita hoy!\",\n" +
-                "          \"estilo\": {\n" +
-                "            \"fuente\": \"Poppins\",\n" +
-                "            \"tamano\": 24,\n" +
-                "            \"color\": \"#2E7D32\",\n" +
-                "            \"negrita\": true,\n" +
-                "            \"alineacion\": \"centro\"\n" +
-                "          },\n" +
-                "          \"posicion\": { \"x\": 100, \"y\": 100 },\n" +
-                "          \"dimension\": { \"ancho\": 500, \"alto\": 50 }\n" +
-                "        },\n" +
-                "        {\n" +
-                "          \"tipo\": \"texto\",\n" +
-                "          \"contenido\": \"Tel: 55 1234 5678  |  Instagram: @spa_relax\",\n" +
-                "          \"estilo\": {\n" +
-                "            \"fuente\": \"Roboto\",\n" +
-                "            \"tamano\": 16,\n" +
-                "            \"color\": \"#666666\"\n" +
-                "          },\n" +
-                "          \"posicion\": { \"x\": 100, \"y\": 180 },\n" +
-                "          \"dimension\": { \"ancho\": 500, \"alto\": 30 }\n" +
-                "        },\n" +
-                "        {\n" +
-                "          \"tipo\": \"imagen\",\n" +
-                "          \"url\": \"https://firebasestorage.googleapis.com/iconos/redes.png\",\n" +
-                "          \"posicion\": { \"x\": 250, \"y\": 240 },\n" +
-                "          \"dimension\": { \"ancho\": 200, \"alto\": 80 }\n" +
-                "        }\n" +
-                "      ]\n" +
+                "      ],\n" +
+                "      \"background\": {\"type\": \"color\", \"value\": \"#F3F4F6\"}\n" +
                 "    }\n" +
                 "  ]\n" +
-                "}\n", false, user1));
+                "}";
+
+// 🖤 Plantilla 4 - Texto grande sobre fondo negro
+        String plantilla4 = "{\n" +
+                "  \"pages\": [\n" +
+                "    {\n" +
+                "      \"id\": 4,\n" +
+                "      \"elements\": [\n" +
+                "        {\n" +
+                "          \"id\": 401,\n" +
+                "          \"type\": \"text\",\n" +
+                "          \"data\": {\"text\": \"Promoción Limitada\", \"fontSize\": 60, \"fontFamily\": \"Impact\", \"color\": \"#FFD700\"},\n" +
+                "          \"position\": {\"x\": 200, \"y\": 250},\n" +
+                "          \"size\": {\"width\": \"800px\", \"height\": \"70px\"},\n" +
+                "          \"rotation\": 0, \"opacity\": 1\n" +
+                "        }\n" +
+                "      ],\n" +
+                "      \"background\": {\"type\": \"color\", \"value\": \"#000000\"}\n" +
+                "    }\n" +
+                "  ]\n" +
+                "}";
+
+// 🟡 Plantilla 5 - Rectángulo amarillo con texto negro
+        String plantilla5 = "{\n" +
+                "  \"pages\": [\n" +
+                "    {\n" +
+                "      \"id\": 5,\n" +
+                "      \"elements\": [\n" +
+                "        {\n" +
+                "          \"id\": 501,\n" +
+                "          \"type\": \"shape\",\n" +
+                "          \"data\": {\"shapeType\": \"rectangle\", \"fillColor\": \"#FACC15\", \"borderColor\": \"#CA8A04\", \"borderWidth\": 2, \"borderRadius\": 10},\n" +
+                "          \"position\": {\"x\": 50, \"y\": 50},\n" +
+                "          \"size\": {\"width\": \"1000px\", \"height\": \"400px\"},\n" +
+                "          \"rotation\": 0, \"opacity\": 1\n" +
+                "        },\n" +
+                "        {\n" +
+                "          \"id\": 502,\n" +
+                "          \"type\": \"text\",\n" +
+                "          \"data\": {\"text\": \"Nuevo Producto\", \"fontSize\": 35, \"fontFamily\": \"Georgia\", \"color\": \"#000000\"},\n" +
+                "          \"position\": {\"x\": 80, \"y\": 200},\n" +
+                "          \"size\": {\"width\": \"500px\", \"height\": \"50px\"},\n" +
+                "          \"rotation\": 0, \"opacity\": 1\n" +
+                "        }\n" +
+                "      ],\n" +
+                "      \"background\": {\"type\": \"color\", \"value\": \"#FFFFFF\"}\n" +
+                "    }\n" +
+                "  ]\n" +
+                "}";
+
+
+        getOrSavePlantilla(new Plantilla("Plantilla 1", plantilla1));
+        getOrSavePlantilla(new Plantilla("Plantilla 2", plantilla2));
+        getOrSavePlantilla(new Plantilla("Plantilla 3", plantilla3));
+        getOrSavePlantilla(new Plantilla("Plantilla 4", plantilla4));
+        getOrSavePlantilla(new Plantilla("Plantilla 5", plantilla5));
+
     }
 }
