@@ -1,9 +1,9 @@
 import { useContext } from "react"
 import { useNavigate } from "react-router-dom"
-import { Dropdown, Avatar } from "flowbite-react"
+import { Dropdown, Avatar, Button, DropdownHeader, DropdownItem } from "flowbite-react"
 import { HiLogout, HiUser, HiCog, HiHome } from "react-icons/hi"
-import  AuthConAtext  from "../../context/AuthContext"
-import { logoutUser } from "../access-control/service/authService" 
+import AuthConAtext from "../../context/AuthContext"
+import { logoutUser } from "../access-control/service/authService"
 import { AlertHelper } from "../../utilities/AlertHelper"
 
 const Navbar = () => {
@@ -14,10 +14,10 @@ const Navbar = () => {
     try {
       await logoutUser()
       dispatch({ type: "LOGOUT" })
-      AlertHelper.showAlert("Sesión cerrada correctamente","success")
+      AlertHelper.showAlert("Sesión cerrada correctamente", "success")
       navigate("/login")
     } catch (error) {
-      AlertHelper.showAlert("Error al cerrar sesión","error")
+      AlertHelper.showAlert("Error al cerrar sesión", "error")
     }
   }
 
@@ -56,32 +56,13 @@ const Navbar = () => {
               arrowIcon={false}
               inline
               label={
-                <Avatar
-                  alt="Usuario"
-                  img={user?.avatar || `/placeholder.svg?height=40&width=40&query=user+avatar`}
-                  rounded
-                  className="cursor-pointer hover:ring-2 hover:ring-purple-300 transition-all"
-                />
+                <Button
+                  onClick={handleLogout}
+                  className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700">
+                  Cerrar sesión
+                </Button>
               }
             >
-              <Dropdown.Header>
-                <span className="block text-sm font-medium">{user?.name || user?.username}</span>
-                <span className="block truncate text-sm text-gray-500">{user?.email}</span>
-              </Dropdown.Header>
-
-              <Dropdown.Item icon={HiUser} onClick={() => navigate("/profile")}>
-                Mi Perfil
-              </Dropdown.Item>
-
-              <Dropdown.Item icon={HiCog} onClick={() => navigate("/settings")}>
-                Configuración
-              </Dropdown.Item>
-
-              <Dropdown.Divider />
-
-              <Dropdown.Item icon={HiLogout} onClick={handleLogout} className="text-red-600 hover:text-red-800">
-                Cerrar Sesión
-              </Dropdown.Item>
             </Dropdown>
           </div>
         </div>
