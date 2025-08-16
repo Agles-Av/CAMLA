@@ -1,4 +1,4 @@
-# 🧾 Información General del Proyecto
+# Información General del Proyecto
 
 **Tipo de sistema:** Página web  
 **Usuarios:** Cada usuario crea su cuenta (registro individual)  
@@ -8,7 +8,7 @@
 
 ---
 
-## 👤 Gestión de Usuarios
+## Gestión de Usuarios
 
 **Registro**  
 Campos requeridos:  
@@ -26,7 +26,7 @@ Campos requeridos:
 
 ---
 
-## 📁 Catálogos (Lienzos de trabajo)
+## Catálogos (Lienzos de trabajo)
 
 - Los usuarios podrán crear catálogos (como proyectos de diseño)
 - Cada catálogo puede contener múltiples páginas (lienzos)
@@ -50,7 +50,7 @@ Campos requeridos:
 
 ---
 
-## 🎨 Editor de Catálogos
+## Editor de Catálogos
 
 Funcionalidades similares a Canva o Word:
 
@@ -74,7 +74,7 @@ Funcionalidades similares a Canva o Word:
 
 ---
 
-## 🏞 Banco de Imágenes
+## Banco de Imágenes
 
 **Ubicación:** Panel izquierdo  
 **Funciones:**
@@ -89,7 +89,7 @@ Funcionalidades similares a Canva o Word:
 
 ---
 
-## 🖥️ Interfaz de Usuario (UI)
+## Interfaz de Usuario (UI)
 
 **Layout principal:**
 
@@ -106,7 +106,7 @@ Funcionalidades similares a Canva o Word:
 
 ---
 
-## 📦 Gestión de Productos
+## Gestión de Productos
 
 Cada usuario puede configurar sus productos:  
 - Añadir descripciones  
@@ -115,7 +115,7 @@ Cada usuario puede configurar sus productos:
 
 ---
 
-## 🔐 Seguridad y Datos
+## Seguridad y Datos
 
 - Username único (evita duplicaciones)
 - Contraseñas encriptadas
@@ -125,7 +125,7 @@ Cada usuario puede configurar sus productos:
 
 ---
 
-# 📂 Estructura de Carpetas del Proyecto
+# Estructura de Carpetas del Proyecto
 
 📁 docs/ → Documentación del proyecto (avances, especificaciones)
 📁 src/ → Código fuente principal de la aplicación
