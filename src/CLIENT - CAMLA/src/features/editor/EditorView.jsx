@@ -21,6 +21,7 @@ const EditorView = () => {
   const [isLoading, setIsLoading] = useState(true)
   const [isSaving, setIsSaving] = useState(false)
 
+
   // Historial para undo/redo
   const [history, setHistory] = useState([])
   const [historyIndex, setHistoryIndex] = useState(-1)
@@ -205,7 +206,7 @@ const EditorView = () => {
     try {
       // Configura PDF (A4, vertical)
       const pdf = new jsPDF({
-        orientation: "portrait",
+        orientation: "landscape",
         unit: "pt",
         format: "a4"
       });
@@ -399,6 +400,7 @@ const EditorView = () => {
             <CanvasPage
               page={catalog.pages[currentPage]}
               onUpdate={(updatedPage) => updatePage(currentPage, updatedPage)}
+           
             />
           </div>
         </div>
