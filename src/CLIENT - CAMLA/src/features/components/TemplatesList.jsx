@@ -94,7 +94,7 @@ const TemplatesList = ({ templates, isLoading, onRefresh }) => {
             >
               <HiPlus className="mr-2 h-4 w-4" />
               Usar Plantilla
-            </Button>
+            </Button> 
 
             {/* Información adicional */}
             <div className="text-xs text-gray-200">
