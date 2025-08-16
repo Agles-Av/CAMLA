@@ -219,7 +219,7 @@ const CatalogCards = ({ catalogs, isLoading, onEdit, onRefresh }) => {
                 <span className="text-sm text-gray-100">Estado público:</span>
                 <ToggleSwitch checked={catalog.status} onChange={(checked) => handleToggleStatus(catalog, checked)} />
               </div>
-            </Card>
+            </Card> 
           ))}
         </div>
       )}
