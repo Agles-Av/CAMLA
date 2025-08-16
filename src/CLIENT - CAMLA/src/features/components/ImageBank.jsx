@@ -244,7 +244,7 @@ const ImageBank = ({ type = "global" }) => {
                         <>
                           <Button
                             size="xs"
-                            color={image.status ? "success" : "gray"}
+                            color={image.status ? "gray" : "gray"}
                             onClick={(e) => {
                               e.stopPropagation()
                               handleToggleStatus(image.id, image.status)
@@ -273,7 +273,7 @@ const ImageBank = ({ type = "global" }) => {
                   <div className="flex items-center justify-between mt-1">
                     <p className="text-xs text-gray-500">{image.categoria?.nombre}</p>
                     {type === "personal" && (
-                      <Badge size="xs" color={image.status ? "success" : "gray"}>
+                      <Badge size="xs" color={image.status ? "success" : "red"}>
                         {image.status ? "Público" : "Privado"}
                       </Badge>
                     )}
