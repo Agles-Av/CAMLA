@@ -93,12 +93,12 @@ const DashboardView = () => {
 
       <div className="flex">
         {/* Sidebar izquierdo - Banco de imágenes */}
-        <div className="w-80 bg-white shadow-lg border-r border-gray-200 h-screen sticky top-16">
+        <div className="w-80 bg-gradient-to-r from-indigo-200 to-purple-300 hover:from-indigo-300 hover:to-purple-200 shadow-lg border-r border-gray-200 h-screen sticky top-16">
           <Sidebar />
         </div>
 
         {/* Panel principal derecho */}
-        <div className="flex-1 p-6 overflow-y-auto">
+        <div className="flex-1 p-6 overflow-y-auto bg-gradient-to-r from-indigo-200 to-purple-300 hover:from-indigo-300 hover:to-purple-200">
           <div className="max-w-7xl mx-auto space-y-8">
 
             {/* Mensaje de bienvenida */}
@@ -179,7 +179,7 @@ const DashboardView = () => {
                 </div>
               </div>
 
-              <div className="p-6">
+              <div className="p-6 bg-white">
                 {/* Sección de catálogos públicos */}
                 <PublicCatalogsSection />
               </div>
