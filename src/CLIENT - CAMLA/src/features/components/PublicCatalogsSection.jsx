@@ -3,6 +3,7 @@ import { Spinner, Card, Button } from "flowbite-react"
 import { HiTemplate, HiEye } from "react-icons/hi"
 import { getPublicCatalogs } from "../../services/CatalogService"
 import { useNavigate } from "react-router-dom"
+import TumblrPreview from "./TumblrPreview"
 
 const PublicCatalogsSection = () => {
   const [publicCatalogs, setPublicCatalogs] = useState([])
@@ -53,19 +54,18 @@ const PublicCatalogsSection = () => {
         {publicCatalogs.map((catalog) => (
           <Card key={catalog.id} className="bg-gradient-to-r from-purple-900 to-blue-900 hover:from-purple-800 hover:to-blue-800">
             <div className="bg-gray-100 rounded-lg h-32 mb-4 flex items-center justify-center overflow-hidden">
-              <img
-                src={'/preview.png'}
-                alt={`Preview de ${catalog.nombre}`}
-                className="max-h-full max-w-full object-contain rounded"
-              />
+              <TumblrPreview contenidoJson={catalog.contenidoJson} />
             </div>
             <div className="space-y-3">
               <div>
                 <h3 className="text-lg font-semibold text-white truncate" title={catalog.nombre}>
-                  {catalog.nombre}
+                  {catalog.nombre} 
                 </h3>
                 <p className="text-sm text-gray-100 line-clamp-2 mt-1">
                   {catalog.descripcion || "Catálogo público disponible"}
+                </p>
+                <p className="text-sm text-gray-100 line-clamp-2 mt-1">
+                  Creador: {catalog.usuario?.nombre || "Catálogo público disponible"}
                 </p>
               </div>
               <Button
