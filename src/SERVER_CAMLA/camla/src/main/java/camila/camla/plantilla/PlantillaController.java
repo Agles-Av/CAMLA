@@ -10,9 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/camla/plantillas")
 @CrossOrigin(origins = {"*"})
-@RequiredArgsConstructor
+
 public class PlantillaController {
     private final PlantillaService plantillaService;
+
+    public PlantillaController(PlantillaService plantillaService) {
+        this.plantillaService = plantillaService;
+    }
 
     @GetMapping("/")
     public ResponseEntity<?> getAll() {

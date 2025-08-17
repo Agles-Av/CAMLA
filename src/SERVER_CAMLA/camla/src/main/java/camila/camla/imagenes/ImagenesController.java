@@ -15,10 +15,13 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/camla/imagenes")
-@RequiredArgsConstructor
 @CrossOrigin(origins = "*")
 public class ImagenesController {
     private final ImagenesService imagenesService;
+
+    public ImagenesController(ImagenesService imagenesService) {
+        this.imagenesService = imagenesService;
+    }
 
     @PostMapping(value = "/subir", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> subirImagen(

@@ -13,10 +13,13 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/camla/categorias")
-@RequiredArgsConstructor
 @CrossOrigin(origins = "*")
 public class CategoriasController {
     private final CategoriaService categoriaService;
+
+    public CategoriasController(CategoriaService categoriaService) {
+        this.categoriaService = categoriaService;
+    }
 
     @PostMapping
     public ResponseEntity<Map<String, Object>> crearCategoria(@Valid @RequestBody CategoriaRequestDTO request) {

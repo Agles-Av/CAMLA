@@ -1,9 +1,13 @@
 package camila.camla.config;
 
+import camila.camla.categorias.CategoriaService;
+import camila.camla.imagenes.FirebaseStorageService;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
@@ -12,7 +16,6 @@ import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.io.InputStream;
 
-@Slf4j
 @Configuration
 
 public class FirebaseConfig {
@@ -27,7 +30,6 @@ public class FirebaseConfig {
     public void initialize() {
         try {
             if (FirebaseApp.getApps().isEmpty()) {
-                log.info("Inicializando Firebase con bucket: {}", storageBucket);
 
                 // Cargar credenciales desde resources
                 InputStream serviceAccount = new ClassPathResource(firebaseConfigPath).getInputStream();
@@ -39,13 +41,10 @@ public class FirebaseConfig {
                         .build();
 
                 FirebaseApp.initializeApp(options);
-                log.info("Firebase inicializado correctamente");
 
             } else {
-                log.info("Firebase ya está inicializado");
             }
         } catch (IOException e) {
-            log.error("Error al inicializar Firebase: {}", e.getMessage());
             throw new RuntimeException("Error al inicializar Firebase", e);
         }
     }

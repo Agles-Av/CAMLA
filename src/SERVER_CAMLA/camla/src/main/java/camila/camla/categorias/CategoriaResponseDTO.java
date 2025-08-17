@@ -4,9 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+
 public class CategoriaResponseDTO {
     private Long id;
     private String nombre;
@@ -27,5 +25,38 @@ public class CategoriaResponseDTO {
                 categoria.getNombre(),
                 null // No cargar el conteo para consultas simples
         );
+    }
+
+    public CategoriaResponseDTO(Long id, String nombre, Long totalImagenes) {
+        this.id = id;
+        this.nombre = nombre;
+        this.totalImagenes = totalImagenes;
+    }
+
+    public CategoriaResponseDTO() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public Long getTotalImagenes() {
+        return totalImagenes;
+    }
+
+    public void setTotalImagenes(Long totalImagenes) {
+        this.totalImagenes = totalImagenes;
     }
 }

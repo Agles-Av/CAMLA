@@ -18,12 +18,18 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
 public class ImagenesService {
     private final ImagenesRepository imagenesRepository;
     private final UsuarioRepository usuarioRepository;
     private final CategoriasRepository categoriasRepository;
     private final FirebaseStorageService firebaseStorageService;
+
+    public ImagenesService(ImagenesRepository imagenesRepository, UsuarioRepository usuarioRepository, CategoriasRepository categoriasRepository, FirebaseStorageService firebaseStorageService) {
+        this.imagenesRepository = imagenesRepository;
+        this.usuarioRepository = usuarioRepository;
+        this.categoriasRepository = categoriasRepository;
+        this.firebaseStorageService = firebaseStorageService;
+    }
 
     @Transactional
     public ImagenResponseDTO subirImagen(MultipartFile archivo, SubirImagenRequestDTO request) throws IOException {
