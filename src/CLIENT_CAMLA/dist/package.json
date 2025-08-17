@@ -1,0 +1,10 @@
+{
+  "name": "camla-frontend",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "serve -s dist"
+  },
+  "dependencies": {
+    "serve": "latest"
+  }
+}
