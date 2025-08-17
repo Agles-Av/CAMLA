@@ -7,6 +7,7 @@ import { HiTemplate, HiPlus } from "react-icons/hi"
 import  AuthConAtext  from "../../context/AuthContext"
 import { createCatalog } from "../../services/CatalogService"
 import { AlertHelper } from "../../utilities/AlertHelper"
+import TumblrPreview from "./TumblrPreview"
 
 const TemplatesList = ({ templates, isLoading, onRefresh }) => {
   const navigate = useNavigate()
@@ -68,11 +69,7 @@ const TemplatesList = ({ templates, isLoading, onRefresh }) => {
         <Card key={template.id} className="bg-gradient-to-r from-purple-900 to-blue-900 hover:from-purple-800 hover:to-blue-800">
           {/* Preview de la plantilla */}
           <div className="bg-gray-100 rounded-lg h-32 mb-4 flex items-center justify-center overflow-hidden">
-            <img
-              src={'/preview.png'}
-              alt={`Preview de ${template.nombre}`}
-              className="max-h-full max-w-full object-contain rounded"
-            />
+            <TumblrPreview contenidoJson={template.contenidoJson} />
           </div>
 
           {/* Información de la plantilla */}
@@ -94,7 +91,7 @@ const TemplatesList = ({ templates, isLoading, onRefresh }) => {
             >
               <HiPlus className="mr-2 h-4 w-4" />
               Usar Plantilla
-            </Button>
+            </Button> 
 
             {/* Información adicional */}
             <div className="text-xs text-gray-200">

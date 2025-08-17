@@ -68,7 +68,7 @@ const UserRegister = () => {
 
                 {/* Modal de confirmación */}
                 <Modal show={showModal} onClose={() => setShowModal(false)} size="md">
-                    <ModalHeader>
+                    <ModalHeader className="bg">
                         <div className="flex items-center">
                             <HiInformationCircle className="w-6 h-6 text-blue-600 mr-2" />
                             Confirmar Registro

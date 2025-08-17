@@ -7,6 +7,7 @@ import { createCatalog, deleteCatalog, updateCatalogStatus } from "../../service
 import { getTemplates } from "../../services/PlantillaService"
 import { validateCatalogName } from "../../validations/CatalogValidations"
 import { AlertHelper } from "../../utilities/AlertHelper"
+import TumblrPreview from "./TumblrPreview"
 
 const CatalogCards = ({ catalogs, isLoading, onEdit, onRefresh }) => {
   const navigate = useNavigate()
@@ -178,14 +179,13 @@ const CatalogCards = ({ catalogs, isLoading, onEdit, onRefresh }) => {
                 <Dropdown
                   arrowIcon={false}
                   inline
-                  label={<HiDotsVertical className="h-5 w-5 text-gray-500 hover:text-gray-700 cursor-pointer" />}
+                  label={<HiDotsVertical className="h-5 w-5 text-white hover:text-gray-700 cursor-pointer" />}
+                  className="bg-white"
                 >
                   <DropdownItem icon={HiPencil} onClick={() => onEdit(catalog.id)}>
                     Editar catálogo
                   </DropdownItem>
-                  <DropdownItem icon={HiEye} onClick={() => navigate(`/catalog/${catalog.id}`)}>
-                    Ver catálogo
-                  </DropdownItem>
+            
                   <DropdownItem icon={HiDuplicate} onClick={() => console.log("Duplicar", catalog.id)}>
                     Duplicar
                   </DropdownItem>
@@ -203,15 +203,9 @@ const CatalogCards = ({ catalogs, isLoading, onEdit, onRefresh }) => {
                 </Dropdown>
               </div>
 
-              {/* Preview del catálogo */}
+              {/* Preview tipo Tumblr del catálogo */}
               <div className="bg-gray-100 rounded-lg h-32 mb-4 flex items-center justify-center overflow-hidden">
-                <img
-                  src={
-                    `/preview.png`
-                  }
-                  alt={`Preview de ${catalog.nombre}`}
-                  className="max-h-full max-w-full object-contain rounded"
-                />
+                <TumblrPreview contenidoJson={catalog.contenidoJson} />
               </div>
 
               {/* Toggle público/privado */}
@@ -219,20 +213,20 @@ const CatalogCards = ({ catalogs, isLoading, onEdit, onRefresh }) => {
                 <span className="text-sm text-gray-100">Estado público:</span>
                 <ToggleSwitch checked={catalog.status} onChange={(checked) => handleToggleStatus(catalog, checked)} />
               </div>
-            </Card>
+            </Card> 
           ))}
         </div>
       )}
 
       {/* Modal crear catálogo */}
-      <Modal show={showCreateModal} onClose={() => setShowCreateModal(false)} size="lg">
-        <ModalHeader>
+      <Modal show={showCreateModal} onClose={() => setShowCreateModal(false)} size="lg" className="bg-white">
+        <ModalHeader className="bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-t-2xl">
           <div className="flex items-center space-x-2">
             <HiPlus className="w-5 h-5 text-purple-600" />
             <span>Crear Nuevo Catálogo</span>
           </div>
         </ModalHeader>
-        <ModalBody>
+        <ModalBody className="bg-white p-6">
           <div className="space-y-6">
             {/* Nombre del catálogo */}
             <div>
@@ -310,7 +304,7 @@ const CatalogCards = ({ catalogs, isLoading, onEdit, onRefresh }) => {
             </div>
           </div>
         </ModalBody>
-        <ModalFooter>
+        <ModalFooter className="bg-white space-x-3 p-6">
           <Button color="gray" onClick={() => setShowCreateModal(false)}>
             Cancelar
           </Button>
@@ -325,9 +319,10 @@ const CatalogCards = ({ catalogs, isLoading, onEdit, onRefresh }) => {
           setSelectedCatalog(null)
         }}
         size="md"
+       
       >
-        <ModalHeader>Confirmar Eliminación</ModalHeader>
-        <ModalBody>
+        <ModalHeader  className="bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-t-2xl">"Confirmar Eliminación</ModalHeader>
+        <ModalBody className="bg-white">
           <div className="text-center">
             <HiTrash className="mx-auto mb-4 h-14 w-14 text-red-600" />
             <h3 className="mb-5 text-lg font-normal text-gray-500">
@@ -336,7 +331,7 @@ const CatalogCards = ({ catalogs, isLoading, onEdit, onRefresh }) => {
             <p className="text-sm text-gray-400 mb-4">Esta acción no se puede deshacer.</p>
           </div>
         </ModalBody>
-        <ModalFooter className="justify-center">
+        <ModalFooter className="justify-center bg-white">
           <Button color="failure" onClick={handleDeleteCatalog} disabled={deleteLoading}>
             {deleteLoading ? (
               <>

@@ -56,6 +56,7 @@ const ImageBank = ({ type = "global" }) => {
 
         if (type === "global") {
           response = await getGlobalImages()
+          response = (response || []).filter(img => img.status !== false)
         } else {
           if (!user?.id) return
           response = await getUserImages(user.id)
@@ -172,9 +173,9 @@ const ImageBank = ({ type = "global" }) => {
   }
 
   return (
-    <div className="h-full flex flex-col">
+    <div className="h-full flex flex-col bg-gradient-to-r from-indigo-200 to-purple-300 hover:from-indigo-300 hover:to-purple-200">
       {/* Controles de búsqueda y filtros */}
-      <div className="p-4 space-y-3 border-b border-gray-200 bg-gray-50">
+      <div className="p-4 space-y-3 border-b border-gray-200 bg-gray-50 bg-gradient-to-r from-indigo-200 to-purple-300 hover:from-indigo-300 hover:to-purple-200">
         {/* Buscador */}
         <TextInput
           icon={HiSearch}
@@ -238,13 +239,13 @@ const ImageBank = ({ type = "global" }) => {
                   />
 
                   {/* Overlay con acciones */}
-                  <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-200 flex items-center justify-center opacity-0 group-hover:opacity-100">
+                  <div className="absolute inset-0 bg-gray bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-200 flex items-center justify-center opacity-0 group-hover:opacity-100">
                     <div className="flex space-x-2">
                       {type === "personal" && (
                         <>
                           <Button
                             size="xs"
-                            color={image.status ? "success" : "gray"}
+                            color={image.status ? "green" : "red"}
                             onClick={(e) => {
                               e.stopPropagation()
                               handleToggleStatus(image.id, image.status)
@@ -253,14 +254,15 @@ const ImageBank = ({ type = "global" }) => {
                             {image.status ? <HiEye className="w-3 h-3" /> : <HiEyeOff className="w-3 h-3" />}
                           </Button>
                           <Button
+                          
                             size="xs"
-                            color="failure"
+                            color="red"
                             onClick={(e) => {
                               e.stopPropagation()
                               handleDeleteImage(image.id)
                             }}
                           >
-                            <HiTrash className="w-3 h-3" />
+                            <HiTrash  className="w-3 h-3" />
                           </Button>
                         </>
                       )}
@@ -273,7 +275,7 @@ const ImageBank = ({ type = "global" }) => {
                   <div className="flex items-center justify-between mt-1">
                     <p className="text-xs text-gray-500">{image.categoria?.nombre}</p>
                     {type === "personal" && (
-                      <Badge size="xs" color={image.status ? "success" : "gray"}>
+                      <Badge size="xs" color={image.status ? "success" : "red"}>
                         {image.status ? "Público" : "Privado"}
                       </Badge>
                     )}
@@ -295,13 +297,13 @@ const ImageBank = ({ type = "global" }) => {
         }}
         size="md"
       >
-        <ModalHeader>
+        <ModalHeader className="bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-t-2xl">
           <div className="flex items-center space-x-2">
             <HiPlus className="w-5 h-5 text-purple-600" />
             <span>Agregar Nueva Imagen</span>
           </div>
         </ModalHeader>
-        <ModalBody>
+        <ModalBody className="bg-white">
           <form onSubmit={handleUpload} className="space-y-4">
             <div>
               <Label htmlFor="imageName" value="Nombre de la imagen" className="text-gray-700 font-medium" />
@@ -358,7 +360,7 @@ const ImageBank = ({ type = "global" }) => {
             </div>
           </form>
         </ModalBody>
-        <ModalFooter>
+        <ModalFooter className="bg-white">
           <Button
             onClick={handleUpload}
             disabled={uploadLoading}

@@ -1,8 +1,10 @@
 "use client"
 
-import { useState, useEffect, useContext } from "react"
+import React, { useState, useEffect, useContext } from "react"
+import { Spinner, Card, Button } from "flowbite-react"
+import { HiTemplate, HiEye } from "react-icons/hi"
 import { useNavigate } from "react-router-dom"
-import  AuthConAtext  from "../../context/AuthContext"
+import AuthConAtext from "../../context/AuthContext"
 import Navbar from './NavBar'
 import Sidebar from "./Sidebar"
 import CatalogCards from "./CatalogCards"
@@ -10,13 +12,14 @@ import TemplatesList from "./TemplatesList"
 import { getCatalogsByUser } from "../../services/CatalogService"
 import { getTemplates } from "../../services/PlantillaService"
 import { AlertHelper } from "../../utilities/AlertHelper"
+import PublicCatalogsSection from "./PublicCatalogsSection"
 
 const DashboardView = () => {
   const navigate = useNavigate()
   const { user, token } = useContext(AuthConAtext)
 
   const [catalogs, setCatalogs] = useState([])
-  const [templates, setTemplates] = useState([])    
+  const [templates, setTemplates] = useState([])
   const [isLoadingCatalogs, setIsLoadingCatalogs] = useState(true)
   const [isLoadingTemplates, setIsLoadingTemplates] = useState(true)
   const [refreshTrigger, setRefreshTrigger] = useState(0)
@@ -77,6 +80,8 @@ const DashboardView = () => {
     navigate(`/editor/${catalogId}`)
   }
 
+  // ...
+
   if (!user || !token) {
     return null
   }
@@ -88,13 +93,14 @@ const DashboardView = () => {
 
       <div className="flex">
         {/* Sidebar izquierdo - Banco de imágenes */}
-        <div className="w-80 bg-white shadow-lg border-r border-gray-200 h-screen sticky top-16">
+        <div className="w-80 bg-gradient-to-r from-indigo-200 to-purple-300 hover:from-indigo-300 hover:to-purple-200 shadow-lg border-r border-gray-200 h-screen sticky top-16">
           <Sidebar />
         </div>
 
         {/* Panel principal derecho */}
-        <div className="flex-1 p-6 overflow-y-auto">
+        <div className="flex-1 p-6 overflow-y-auto bg-gradient-to-r from-indigo-200 to-purple-300 hover:from-indigo-300 hover:to-purple-200">
           <div className="max-w-7xl mx-auto space-y-8">
+
             {/* Mensaje de bienvenida */}
             <div className="bg-white rounded-2xl shadow-sm p-6 border border-gray-100">
               <div className="flex items-center space-x-4">
@@ -154,6 +160,28 @@ const DashboardView = () => {
 
               <div className="p-6">
                 <TemplatesList templates={templates} isLoading={isLoadingTemplates} onRefresh={handleRefreshCatalogs} />
+              </div>
+            </div>
+
+
+
+            {/* Sección de plantillas */}
+            <div className="bg-white rounded-2xl shadow-sm border border-gray-100">
+              <div className="p-6 border-b border-gray-100">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h2 className="text-2xl font-bold text-gray-800">Catalogos públicos</h2>
+                    <p className="text-gray-600 mt-1">Mirá estos catalogos hechos por la comunidad</p>
+                  </div>
+                  <div className="text-sm text-gray-500">
+                    {templates.length} plantilla{templates.length !== 1 ? "s" : ""}
+                  </div>
+                </div>
+              </div>
+
+              <div className="p-6 bg-white">
+                {/* Sección de catálogos públicos */}
+                <PublicCatalogsSection />
               </div>
             </div>
           </div>

@@ -9,7 +9,7 @@ const Sidebar = () => {
   const [activeTab, setActiveTab] = useState(0)
 
   return (
-    <div className="h-full flex flex-col">
+    <div className="h-full ">
       {/* Header del sidebar */}
       <div className="p-4 border-b border-gray-200 bg-gradient-to-r from-purple-50 to-blue-50">
         <div className="flex items-center space-x-2">
@@ -27,7 +27,7 @@ const Sidebar = () => {
           aria-label="Banco de imágenes"
         
           onActiveTabChange={(tab) => setActiveTab(tab)}
-          className="h-full flex flex-col"
+          className="h-full "
         >
           <Tabs.Item active title="Banco Global" icon={HiGlobeAlt}>
             <div className="flex-1 overflow-hidden">

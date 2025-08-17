@@ -21,6 +21,7 @@ const EditorView = () => {
   const [isLoading, setIsLoading] = useState(true)
   const [isSaving, setIsSaving] = useState(false)
 
+
   // Historial para undo/redo
   const [history, setHistory] = useState([])
   const [historyIndex, setHistoryIndex] = useState(-1)
@@ -205,7 +206,7 @@ const EditorView = () => {
     try {
       // Configura PDF (A4, vertical)
       const pdf = new jsPDF({
-        orientation: "portrait",
+        orientation: "landscape",
         unit: "pt",
         format: "a4"
       });
@@ -278,6 +279,42 @@ const EditorView = () => {
       </div>
     )
   }
+  const exportCurrentPageAsImage = async () => {
+  try {
+    const node = document.querySelector(".canvas-catalogo");
+    if (!node) {
+      AlertHelper.showAlert("No se encontró el área de exportación", "error");
+      return;
+    }
+
+    // Captura nítida; si usas landscape/portrait, da igual, se respeta lo que ves
+    const canvasImage = await html2canvas(node, {
+      useCORS: true,
+      backgroundColor: "#ffffff",
+      logging: false,
+      scale: 2, // sube a 3 si querés más nitidez (archivo más pesado)
+      // opcional: fijar dimensiones si tenés PAGE_SPEC
+      // width: 1754, height: 1240, windowWidth: 1754, windowHeight: 1240
+    });
+
+    const dataUrl = canvasImage.toDataURL("image/png");
+
+    // descarga inmediata
+    const link = document.createElement("a");
+    link.href = dataUrl;
+    const nombre = catalog?.nombre ? catalog.nombre.replace(/\s+/g, "_") : "Catalogo";
+    link.download = `${nombre}_p${currentPage + 1}.png`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    AlertHelper.showAlert("Imagen exportada correctamente", "success");
+  } catch (err) {
+    console.error(err);
+    AlertHelper.showAlert("Error al exportar imagen", "error");
+  }
+};
+
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col">
@@ -339,6 +376,13 @@ const EditorView = () => {
               <HiDownload className="mr-2 h-4 w-4" />
               Exportar
             </Button>
+            <Button
+              onClick={exportCurrentPageAsImage}
+              className="bg-gradient-to-r from-purple-600 to-fuchsia-700 hover:from-purple-700 hover:to-fuchsia-800"
+              size="sm"
+            >
+              Exportar PNG
+            </Button>
           </div>
         </div>
       </div>
@@ -399,6 +443,7 @@ const EditorView = () => {
             <CanvasPage
               page={catalog.pages[currentPage]}
               onUpdate={(updatedPage) => updatePage(currentPage, updatedPage)}
+
             />
           </div>
         </div>
