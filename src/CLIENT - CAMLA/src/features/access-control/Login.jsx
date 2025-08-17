@@ -114,7 +114,7 @@ const LoginView = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-100 via-blue-50 to-pink-100 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-purple-200 via-blue-100 to-pink-200 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         {/* Logo y título */}
         <div className="text-center mb-8">
@@ -215,7 +215,7 @@ const LoginView = () => {
             <p className="text-gray-600">
               ¿No tienes cuenta?{" "}
               <button
-                onClick={() => navigate("/register")}
+                onClick={() => navigate("/register",replace)}
                 className="text-purple-600 hover:text-purple-800 font-medium"
               >
                 Regístrate aquí
@@ -239,7 +239,7 @@ const LoginView = () => {
         <ModalHeader className="bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-t-2xl">
           Recuperar Contraseña
         </ModalHeader>
-        <ModalBody className="p-6">
+        <ModalBody className="p-6 bg-white ">
           <div className="space-y-4">
             <p className="text-gray-600">
               Ingresa tu correo electrónico y te enviaremos un enlace para restablecer tu contraseña.
@@ -269,7 +269,7 @@ const LoginView = () => {
             </div>
           </div>
         </ModalBody>
-        <ModalFooter className="flex justify-end space-x-3 p-6">
+        <ModalFooter className="flex justify-end bg-white space-x-3 p-6">
           <Button
             color="gray"
             onClick={() => {

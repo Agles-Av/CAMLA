@@ -4,6 +4,7 @@ import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider, N
 import AuthContext from '../context/AuthContext'
 import SpinnerLazy from '../utilities/SpinnerLazy'
 import NotFound404 from '../utilities/error-pages/NotFound404'
+import CatalogView from '../features/components/CatalogView'
 
 const AppRouter = () => {
     //impotaciones con lazy
@@ -72,6 +73,14 @@ const AppRouter = () => {
                         {isAuthenticated ? <EditorView/> : <Navigate to='/' replace />}
                     </Suspense>
                 }
+                />
+                <Route 
+                path='/catalog/:catalogId'
+                element={
+                    <Suspense fallback={<SpinnerLazy/>}>
+                        {isAuthenticated ? <CatalogView/> : <Navigate to='/' replace />}
+                    </Suspense>
+                }catalog
                 />
 
                 {/* Ruta de error 404 */}
