@@ -21,7 +21,7 @@ public class EmailService {
 
     public void sendResetPasswordEmail(String to, String token) throws MessagingException {
         // Enlace de restablecimiento
-        String link = "http://localhost:5173/reset-password?token=" + token;
+        String link = "https://just-enchantment-production.up.railway.app/reset-password?token=" + token;
 
         // Contexto de Thymeleaf
         Context context = new Context();
