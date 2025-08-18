@@ -30,6 +30,7 @@ public class FirebaseConfig {
     public void initialize() {
         try {
             if (FirebaseApp.getApps().isEmpty()) {
+                System.out.println("inicializando firebase"+ storageBucket);
 
                 // Cargar credenciales desde resources
                 InputStream serviceAccount = new ClassPathResource(firebaseConfigPath).getInputStream();
@@ -41,10 +42,13 @@ public class FirebaseConfig {
                         .build();
 
                 FirebaseApp.initializeApp(options);
+                System.out.println("Firebase inicializado");
 
             } else {
+                System.out.println("Firebase ya está inicializado");
             }
         } catch (IOException e) {
+            System.out.println("Error"+ e);
             throw new RuntimeException("Error al inicializar Firebase", e);
         }
     }
