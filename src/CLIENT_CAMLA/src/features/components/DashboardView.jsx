@@ -9,7 +9,7 @@ import Navbar from './NavBar'
 import Sidebar from "./Sidebar"
 import CatalogCards from "./CatalogCards"
 import TemplatesList from "./TemplatesList"
-import { getCatalogsByUser } from "../../services/CatalogService"
+import { getCatalogsByUser, getPublicCatalogs } from "../../services/CatalogService"
 import { getTemplates } from "../../services/PlantillaService"
 import { AlertHelper } from "../../utilities/AlertHelper"
 import PublicCatalogsSection from "./PublicCatalogsSection"
@@ -23,7 +23,9 @@ const DashboardView = () => {
   const [isLoadingCatalogs, setIsLoadingCatalogs] = useState(true)
   const [isLoadingTemplates, setIsLoadingTemplates] = useState(true)
   const [refreshTrigger, setRefreshTrigger] = useState(0)
+  const [catalgosPublicos, setCatalogosPublicos] = useState(0)
 
+  
   // Verificar autenticación
   useEffect(() => {
     if (!user || !token) {
@@ -41,6 +43,8 @@ const DashboardView = () => {
         setIsLoadingCatalogs(true)
         const response = await getCatalogsByUser(user.id)
         setCatalogs(response || [])
+        const cantidadPublicos = await getPublicCatalogs().then(data => data.length || 0)
+        setCatalogosPublicos(cantidadPublicos)
       } catch (error) {
         AlertHelper.error("Error al cargar tus catálogos")
         console.error("Error loading catalogs:", error)
@@ -176,7 +180,7 @@ const DashboardView = () => {
                     <p className="text-gray-600 mt-1">Mirá estos catalogos hechos por la comunidad</p>
                   </div>
                   <div className="text-sm text-gray-500">
-                    {templates.length} plantilla{templates.length !== 1 ? "s" : ""}
+                    {catalgosPublicos} catálogo{catalgosPublicos !== 1 ? "s" : ""}
                   </div>
                 </div>
               </div>
