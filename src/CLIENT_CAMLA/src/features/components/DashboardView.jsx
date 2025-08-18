@@ -92,12 +92,13 @@ const DashboardView = () => {
       <Navbar />
 
       <div className="flex">
-        <div className="w-80 flex flex-col bg-gradient-to-r from-indigo-200 to-purple-300 shadow-lg border-r border-gray-200 h-[calc(100vh-64px)]">
+        <div className="w-80 h-screen fixed left-0 top-0 bg-gradient-to-r from-indigo-200 to-purple-300 shadow-lg border-r border-gray-200">
           <Sidebar />
         </div>
 
+
         {/* Panel principal derecho */}
-        <div className="flex-1 p-6 overflow-y-auto bg-gradient-to-r from-indigo-200 to-purple-300 hover:from-indigo-300 hover:to-purple-200">
+        <div className="flex-1 p-6 ml-80 overflow-y-auto bg-gradient-to-r from-indigo-200 to-purple-300 hover:from-indigo-300 hover:to-purple-200">
           <div className="max-w-7xl mx-auto space-y-8">
 
             {/* Mensaje de bienvenida */}

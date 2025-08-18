@@ -12,6 +12,9 @@ const CatalogView = () => {
   const [catalog, setCatalog] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   const [isUsing, setIsUsing] = useState(false)
+  const PAGE_WIDTH = 1202;   // ancho fijo
+  const PAGE_HEIGHT = 474;  // alto fijo
+
 
   useEffect(() => {
     const fetchCatalog = async () => {
@@ -72,8 +75,8 @@ const CatalogView = () => {
   let pages = []
   try {
     const parsed = JSON.parse(catalog.contenidoJson || '{"pages":[]}')
-    console.log("Plantilla",parsed);
-    
+    console.log("Plantilla", parsed);
+
     pages = parsed.pages || []
   } catch {
     pages = []
@@ -110,8 +113,8 @@ const CatalogView = () => {
                     <div
                       className="canvas-catalogo mx-auto"
                       style={{
-                        width: 1240,
-                        height: 1754,
+                        width: PAGE_WIDTH,
+                        height: PAGE_HEIGHT,
                         background: page.background?.type === "color" ? page.background.value : "#fff",
                         backgroundImage: page.background?.type === "image" ? `url(${page.background.value})` : "none",
                         backgroundSize: "cover",
@@ -180,16 +183,17 @@ const CatalogView = () => {
                                 top: el.position.y,
                                 width: el.size.width,
                                 height: el.size.height,
-                                background: el.data.background || "#fff",
-                                borderRadius: 12,
+                                background: el.data.backgroundColor || "#fff",  // ahora usamos backgroundColor
+                                borderRadius: el.data.borderRadius || 12,
                                 boxShadow: "0 2px 8px rgba(0,0,0,0.10)",
-                                border: el.data.border || "1px solid #eee",
+                                border: `${el.data.borderWidth || 1}px solid ${el.data.borderColor || "#eee"}`, // usamos borderColor
                                 display: "flex",
                                 flexDirection: "column",
                                 alignItems: "center",
                                 justifyContent: "center",
                                 padding: 16,
                                 overflow: "hidden",
+                                boxSizing: "border-box",
                               }}
                             >
                               {el.data.imageData && (
@@ -203,11 +207,55 @@ const CatalogView = () => {
                                   }}
                                 />
                               )}
-                              <div style={{ fontWeight: "bold", fontSize: 18, marginBottom: 8 }}>{el.data.title || "Card"}</div>
-                              <div style={{ color: "#555", fontSize: 14 }}>{el.data.content || "Contenido de la tarjeta"}</div>
+                              <div
+                                style={{
+                                  fontWeight: el.data.titleFontWeight || "bold",
+                                  fontSize: el.data.titleFontSize || 18,
+                                  color: el.data.titleColor || "#1F2937",
+                                  marginBottom: 8,
+                                }}
+                              >
+                                {el.data.title || "Card"}
+                              </div>
+                              <div
+                                style={{
+                                  color: el.data.descriptionColor || "#555",
+                                  fontSize: el.data.descriptionFontSize || 14,
+                                  textAlign: el.data.descriptionAlign || "center",
+                                }}
+                              >
+                                {el.data.description || "Contenido de la tarjeta"}
+                              </div>
                             </div>
                           )
                         }
+
+                        if (el.type === "shape") {
+                          const width = typeof el.size.width === "string" ? parseFloat(el.size.width) : el.size.width
+                          const height = typeof el.size.height === "string" ? parseFloat(el.size.height) : el.size.height
+                          const left = typeof el.position.x === "string" ? parseFloat(el.position.x) : el.position.x
+                          const top = typeof el.position.y === "string" ? parseFloat(el.position.y) : el.position.y
+
+                          return (
+                            <div
+                              key={el.id}
+                              style={{
+                                position: "absolute",
+                                left,
+                                top,
+                                width,
+                                height,
+                                background: el.data.fillColor || "#000",
+                                border: `${el.data.borderWidth || 1}px solid ${el.data.borderColor || "#000"}`,
+                                borderRadius: el.data.shapeType === "circle" ? "50%" : el.data.borderRadius || 0,
+                                transform: `rotate(${el.rotation || 0}deg)`,
+                                opacity: el.opacity ?? 1,
+                                boxSizing: "border-box",
+                              }}
+                            />
+                          )
+                        }
+
                         return null
                       })}
                     </div>
