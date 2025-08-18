@@ -84,7 +84,9 @@ const ImageBank = ({ type = "global" }) => {
     }
 
     if (selectedCategory) {
-      filtered = filtered.filter((img) => img.categoria?.id === Number.parseInt(selectedCategory))
+      console.log(selectedCategory);
+      
+      filtered = filtered.filter((img) => img.categoria === selectedCategory)
     }
 
     setFilteredImages(filtered)
@@ -190,7 +192,7 @@ const ImageBank = ({ type = "global" }) => {
         <Select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)} sizing="sm">
           <option value="">Todas las categorías</option>
           {categories.map((category) => (
-            <option key={category.id} value={category.id}>
+            <option key={category.id} value={category.nombre}>
               {category.nombre}
             </option>
           ))}
