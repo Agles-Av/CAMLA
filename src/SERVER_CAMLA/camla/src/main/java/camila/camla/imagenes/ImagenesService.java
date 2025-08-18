@@ -58,6 +58,7 @@ public class ImagenesService {
         imagen.setUrl(urlPublica);
         imagen.setUsuario(usuario);
         imagen.setCategoria(categoria);
+        imagen.setStatus(false);
 
         Imagenes imagenGuardada = imagenesRepository.save(imagen);
 
