@@ -16,6 +16,7 @@ public class FirebaseStorageService {
     public String subirImagen(MultipartFile archivo, String nombrePersonalizado) throws IOException {
 
         try {
+            System.out.println(nombrePersonalizado+"\n"+ bucketName);
             // Generar nombre único
             String extension = obtenerExtension(archivo.getOriginalFilename());
             String nombreArchivo = nombrePersonalizado + "_" + UUID.randomUUID().toString() + extension;
@@ -44,14 +45,13 @@ public class FirebaseStorageService {
             return urlPublica;
 
         } catch (Exception e) {
+            System.out.println("Error al subir imagen a Firebase Storage: " + e.getMessage());
             throw new IOException("Error al subir imagen a Firebase Storage", e);
         }
     }
 
     public boolean eliminarImagen(String rutaArchivo) {
         try {
-
-
             Storage storage = StorageClient.getInstance().bucket().getStorage();
             BlobId blobId = BlobId.of(bucketName, rutaArchivo);
             boolean eliminado = storage.delete(blobId);
