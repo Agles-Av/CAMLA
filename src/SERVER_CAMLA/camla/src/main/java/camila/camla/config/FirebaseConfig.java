@@ -13,12 +13,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 
 import javax.annotation.PostConstruct;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @Configuration
-
 public class FirebaseConfig {
 
     @Value("${firebase.config.path}")
@@ -31,9 +32,21 @@ public class FirebaseConfig {
     public void initialize() {
         try {
             if (FirebaseApp.getApps().isEmpty()) {
-                GoogleCredentials credentials = GoogleCredentials
-                        .fromStream(new ClassPathResource(firebaseConfigPath).getInputStream())
-                        .createScoped(List.of("https://www.googleapis.com/auth/cloud-platform")); // <-- IMPORTANTE
+
+                InputStream credentialsStream;
+
+                // Verifica si existe la variable de entorno para Railway
+                String envJson = System.getenv("GOOGLE_CLOUD_KEY");
+                if (envJson != null && !envJson.isEmpty()) {
+                    System.out.println("Usando credenciales desde variable de entorno...");
+                    credentialsStream = new ByteArrayInputStream(envJson.getBytes(StandardCharsets.UTF_8));
+                } else {
+                    System.out.println("Usando credenciales desde archivo local...");
+                    credentialsStream = new ClassPathResource(firebaseConfigPath).getInputStream();
+                }
+
+                GoogleCredentials credentials = GoogleCredentials.fromStream(credentialsStream)
+                        .createScoped(List.of("https://www.googleapis.com/auth/cloud-platform"));
 
                 FirebaseOptions options = FirebaseOptions.builder()
                         .setCredentials(credentials)
@@ -48,6 +61,4 @@ public class FirebaseConfig {
             throw new RuntimeException("Error al inicializar Firebase", e);
         }
     }
-
-
 }
