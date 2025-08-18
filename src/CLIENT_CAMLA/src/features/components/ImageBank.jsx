@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react"
 import { Button, TextInput, Select, Modal, Label, FileInput, Spinner, Badge, ModalBody, ModalFooter, ModalHeader } from "flowbite-react"
 import { HiSearch, HiPlus, HiPhotograph, HiTrash, HiEye, HiEyeOff } from "react-icons/hi"
-import  AuthConAtext  from "../../context/AuthContext"
+import AuthConAtext from "../../context/AuthContext"
 import {
   getGlobalImages,
   getUserImages,
@@ -65,7 +65,7 @@ const ImageBank = ({ type = "global" }) => {
         setImages(response || [])
         setFilteredImages(response || [])
       } catch (error) {
-        AlertHelper.showAlert("Error al cargar imágenes","error")
+        AlertHelper.showAlert("Error al cargar imágenes", "error")
         console.error("Error loading images:", error)
       } finally {
         setIsLoading(false)
@@ -78,13 +78,17 @@ const ImageBank = ({ type = "global" }) => {
   // Filtrar imágenes
   useEffect(() => {
     let filtered = images
+    console.log("Filtrando imágenes...")
+    console.log("selectedCategory:", selectedCategory)
 
     if (searchTerm) {
       filtered = filtered.filter((img) => img.nombre?.toLowerCase().includes(searchTerm.toLowerCase()))
     }
 
     if (selectedCategory) {
-      filtered = filtered.filter((img) => img.categoria?.id === Number.parseInt(selectedCategory))
+      filtered = filtered.filter(
+        (img) => img.categoria === selectedCategory
+      )
     }
 
     setFilteredImages(filtered)
@@ -122,7 +126,7 @@ const ImageBank = ({ type = "global" }) => {
 
       await uploadImage(formData)
 
-      AlertHelper.showAlert("Imagen subida correctamente","success")
+      AlertHelper.showAlert("Imagen subida correctamente", "success")
       setShowUploadModal(false)
       setUploadForm({ nombre: "", categoriaId: "", file: null })
       setUploadErrors({})
@@ -131,7 +135,7 @@ const ImageBank = ({ type = "global" }) => {
       const response = type === "global" ? await getGlobalImages() : await getUserImages(user.id)
       setImages(response || [])
     } catch (error) {
-      AlertHelper.showAlert("Error al subir la imagen","error")
+      AlertHelper.showAlert("Error al subir la imagen", "error")
       console.error("Upload error:", error)
     } finally {
       setUploadLoading(false)
@@ -146,13 +150,13 @@ const ImageBank = ({ type = "global" }) => {
 
     try {
       await deleteImage(imageId)
-      AlertHelper.showAlert("Imagen eliminada correctamente","success")
+      AlertHelper.showAlert("Imagen eliminada correctamente", "success")
 
       // Recargar imágenes
       const response = type === "global" ? await getGlobalImages() : await getUserImages(user.id)
       setImages(response || [])
     } catch (error) {
-      AlertHelper.showAlert("Error al eliminar la imagen","error")
+      AlertHelper.showAlert("Error al eliminar la imagen", "error")
       console.error("Delete error:", error)
     }
   }
@@ -161,13 +165,13 @@ const ImageBank = ({ type = "global" }) => {
   const handleToggleStatus = async (imageId, currentStatus) => {
     try {
       await updateImageStatus(imageId, { status: !currentStatus })
-      AlertHelper.showAlert(`Imagen ${!currentStatus ? "publicada" : "marcada como privada"}`,"success")
+      AlertHelper.showAlert(`Imagen ${!currentStatus ? "publicada" : "marcada como privada"}`, "success")
 
       // Recargar imágenes
       const response = type === "global" ? await getGlobalImages() : await getUserImages(user.id)
       setImages(response || [])
     } catch (error) {
-      AlertHelper.showAlert("Error al cambiar el estado de la imagen","error")
+      AlertHelper.showAlert("Error al cambiar el estado de la imagen", "error")
       console.error("Toggle status error:", error)
     }
   }
@@ -190,7 +194,7 @@ const ImageBank = ({ type = "global" }) => {
         <Select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)} sizing="sm">
           <option value="">Todas las categorías</option>
           {categories.map((category) => (
-            <option key={category.id} value={category.id}>
+            <option key={category.nombre} value={category.nombre}>
               {category.nombre}
             </option>
           ))}
@@ -254,7 +258,7 @@ const ImageBank = ({ type = "global" }) => {
                             {image.status ? <HiEye className="w-3 h-3" /> : <HiEyeOff className="w-3 h-3" />}
                           </Button>
                           <Button
-                          
+
                             size="xs"
                             color="red"
                             onClick={(e) => {
@@ -262,7 +266,7 @@ const ImageBank = ({ type = "global" }) => {
                               handleDeleteImage(image.id)
                             }}
                           >
-                            <HiTrash  className="w-3 h-3" />
+                            <HiTrash className="w-3 h-3" />
                           </Button>
                         </>
                       )}

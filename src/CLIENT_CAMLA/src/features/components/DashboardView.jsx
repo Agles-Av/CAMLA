@@ -92,8 +92,7 @@ const DashboardView = () => {
       <Navbar />
 
       <div className="flex">
-        {/* Sidebar izquierdo - Banco de imágenes */}
-        <div className="w-80 bg-gradient-to-r from-indigo-200 to-purple-300 hover:from-indigo-300 hover:to-purple-200 shadow-lg border-r border-gray-200 h-screen sticky top-16">
+        <div className="w-80 flex flex-col bg-gradient-to-r from-indigo-200 to-purple-300 shadow-lg border-r border-gray-200 h-[calc(100vh-64px)]">
           <Sidebar />
         </div>
 
@@ -172,9 +171,6 @@ const DashboardView = () => {
                   <div>
                     <h2 className="text-2xl font-bold text-gray-800">Catalogos públicos</h2>
                     <p className="text-gray-600 mt-1">Mirá estos catalogos hechos por la comunidad</p>
-                  </div>
-                  <div className="text-sm text-gray-500">
-                    {templates.length} plantilla{templates.length !== 1 ? "s" : ""}
                   </div>
                 </div>
               </div>

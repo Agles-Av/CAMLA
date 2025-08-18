@@ -389,7 +389,7 @@ const EditorView = () => {
 
       <div className="flex flex-1">
         {/* Sidebar izquierdo - Banco de imágenes */}
-        <div className="w-80 bg-white shadow-lg border-r border-gray-200">
+        <div className="w-80 flex flex-col bg-gradient-to-r from-indigo-200 to-purple-300 shadow-lg border-r border-gray-200 h-[calc(100vh-64px)]">
           <Sidebar />
         </div>
 
