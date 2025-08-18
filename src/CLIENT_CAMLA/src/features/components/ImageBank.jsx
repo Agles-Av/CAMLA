@@ -84,7 +84,9 @@ const ImageBank = ({ type = "global" }) => {
     }
 
     if (selectedCategory) {
-      filtered = filtered.filter((img) => img.categoria?.id === Number.parseInt(selectedCategory))
+      console.log(selectedCategory);
+      
+      filtered = filtered.filter((img) => img.categoria === selectedCategory)
     }
 
     setFilteredImages(filtered)
@@ -173,9 +175,9 @@ const ImageBank = ({ type = "global" }) => {
   }
 
   return (
-    <div className="h-full flex flex-col bg-gradient-to-r from-indigo-200 to-purple-300 hover:from-indigo-300 hover:to-purple-200">
+    <div className="h-full min-h-0 flex flex-col bg-gradient-to-r from-indigo-200 to-purple-300 hover:from-indigo-300 hover:to-purple-200">
       {/* Controles de búsqueda y filtros */}
-      <div className="p-4 space-y-3 border-b border-gray-200 bg-gray-50 bg-gradient-to-r from-indigo-200 to-purple-300 hover:from-indigo-300 hover:to-purple-200">
+      <div className="p-4 space-y-3 border-b border-gray-200 bg-gray-50 bg-gradient-to-r from-indigo-200 to-purple-300 hover:from-indigo-300 hover:to-purple-200 shrink-0 sticky top-0 z-10">
         {/* Buscador */}
         <TextInput
           icon={HiSearch}
@@ -190,7 +192,7 @@ const ImageBank = ({ type = "global" }) => {
         <Select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)} sizing="sm">
           <option value="">Todas las categorías</option>
           {categories.map((category) => (
-            <option key={category.id} value={category.id}>
+            <option key={category.id} value={category.nombre}>
               {category.nombre}
             </option>
           ))}
@@ -208,7 +210,12 @@ const ImageBank = ({ type = "global" }) => {
       </div>
 
       {/* Grid de imágenes */}
-      <div className="flex-1 overflow-y-auto p-4">
+      <div className="flex-1 min-h-0 overflow-y-auto p-4" style={{ 
+        overflowY: 'auto',
+        overflowX: 'hidden',
+        WebkitOverflowScrolling: 'touch',
+        height: 'calc(100% - 160px)' // Ajusta según la altura de tus controles
+      }}>
         {isLoading ? (
           <div className="flex justify-center items-center h-32">
             <Spinner size="lg" />

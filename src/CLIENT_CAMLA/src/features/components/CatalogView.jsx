@@ -82,7 +82,7 @@ const CatalogView = () => {
   return (
     <div className="min-h-screen bg-gray-100 ">
       <Navbar />
-      <div className="flex flex-1">
+      <div className="flex ">
         <div className="flex-1 p-8 overflow-y-auto">
           <div className="">
             <div className="flex items-center justify-between mb-6">
@@ -100,7 +100,7 @@ const CatalogView = () => {
             </div>
             <div className="mb-4 text-gray-600">{catalog.descripcion}</div>
             {/* Visualización de páginas */}
-            <div className="space-y-8">
+            <div className="">
               {pages.length === 0 ? (
                 <div className="text-center text-gray-400">No hay páginas en este catálogo</div>
               ) : (
@@ -108,10 +108,10 @@ const CatalogView = () => {
                   <div key={page.id || idx} className="bg-white rounded-lg shadow p-6 mb-8">
                     <h2 className="text-lg font-semibold text-gray-700 mb-2">Página {idx + 1}</h2>
                     <div
-                      className="canvas-catalogo mx-auto"
+                      className="canvas-catalogo "
                       style={{
-                        width: 1240,
-                        height: 1754,
+                        width: 1000,
+                        height: 1000,
                         background: page.background?.type === "color" ? page.background.value : "#fff",
                         backgroundImage: page.background?.type === "image" ? `url(${page.background.value})` : "none",
                         backgroundSize: "cover",
@@ -122,6 +122,7 @@ const CatalogView = () => {
                     >
                       {/* Renderizar elementos visualmente, solo modo visualización */}
                       {page.elements.map((el) => {
+                        // IMAGEN
                         if (el.type === "image") {
                           return (
                             <img
@@ -141,6 +142,7 @@ const CatalogView = () => {
                             />
                           )
                         }
+                        // TEXTO
                         if (el.type === "text") {
                           return (
                             <div
@@ -170,7 +172,9 @@ const CatalogView = () => {
                             </div>
                           )
                         }
-                        if (el.type === "card") {
+                        // SHAPE (rectángulo/círculo/figura)
+                        if (el.type === "shape") {
+                          const isCircle = el.data.shapeType === "circle"
                           return (
                             <div
                               key={el.id}
@@ -180,31 +184,66 @@ const CatalogView = () => {
                                 top: el.position.y,
                                 width: el.size.width,
                                 height: el.size.height,
-                                background: el.data.background || "#fff",
-                                borderRadius: 12,
-                                boxShadow: "0 2px 8px rgba(0,0,0,0.10)",
-                                border: el.data.border || "1px solid #eee",
+                                background: el.data.fillColor,
+                                border: `${el.data.borderWidth}px solid ${el.data.borderColor}`,
+                                borderRadius: isCircle ? "50%" : `${el.data.borderRadius || 0}px`,
+                              }}
+                            />
+                          )
+                        }
+                        // CARD (producto/tarjeta)
+                        if (el.type === "card") {
+                          return (
+                            <div
+                              key={el.id}
+                              style={{
+                                position: "absolute",
+                                left: el.position.x,
+                                top: el.position.y,
+                                background: el.data.backgroundColor || "#fff",
+                                border: `${el.data.borderWidth || 1}px solid ${el.data.borderColor || "#eee"}`,
+                                borderRadius: `${el.data.borderRadius || 12}px`,
+                                boxShadow:
+                                  el.data.shadowLevel === 3
+                                    ? "0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05)"
+                                    : el.data.shadowLevel === 2
+                                    ? "0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06)"
+                                    : "0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.06)",
                                 display: "flex",
-                                flexDirection: "column",
+                                flexDirection: el.data.imagePosition === "left"
+                                  ? "row"
+                                  : el.data.imagePosition === "right"
+                                  ? "row-reverse"
+                                  : "column",
                                 alignItems: "center",
                                 justifyContent: "center",
-                                padding: 16,
+                                padding: `${el.data.padding || 16}px`,
                                 overflow: "hidden",
                               }}
                             >
+                              {/* Imagen */}
                               {el.data.imageData && (
                                 <img
                                   src={el.data.imageData.url}
                                   alt={el.data.title || "Imagen"}
                                   style={{
-                                    width: "100%",
+                                    width: el.data.imagePosition === "top" ? "100%" : "33%",
                                     maxHeight: 180,
                                     objectFit: "cover",
+                                    marginBottom: el.data.imagePosition === "top" ? 8 : 0,
+                                    marginRight: el.data.imagePosition === "left" ? 8 : 0,
+                                    marginLeft: el.data.imagePosition === "right" ? 8 : 0,
                                   }}
                                 />
                               )}
-                              <div style={{ fontWeight: "bold", fontSize: 18, marginBottom: 8 }}>{el.data.title || "Card"}</div>
-                              <div style={{ color: "#555", fontSize: 14 }}>{el.data.content || "Contenido de la tarjeta"}</div>
+                              <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+                                <div style={{ fontWeight: el.data.titleFontWeight || "bold", fontSize: el.data.titleFontSize || 18, color: el.data.titleColor || "#1F2937", marginBottom: 8, textAlign: el.data.textAlign || "center" }}>
+                                  {el.data.title || "Card"}
+                                </div>
+                                <div style={{ color: el.data.descriptionColor || "#555", fontSize: el.data.descriptionFontSize || 14, textAlign: el.data.textAlign || "center" }}>
+                                  {el.data.description || el.data.content || "Contenido de la tarjeta"}
+                                </div>
+                              </div>
                             </div>
                           )
                         }
