@@ -9,9 +9,9 @@ const Sidebar = () => {
   const [activeTab, setActiveTab] = useState(0)
 
   return (
-    <div className="h-full ">
+    <div className="h-full flex flex-col">
       {/* Header del sidebar */}
-      <div className="p-4 border-b border-gray-200 bg-gradient-to-r from-purple-50 to-blue-50">
+      <div className="p-4 border-b border-gray-200 bg-gradient-to-r from-purple-50 to-blue-50 flex-shrink-0">
         <div className="flex items-center space-x-2">
           <HiPhotograph className="w-6 h-6 text-purple-600" />
           <div>
@@ -22,21 +22,20 @@ const Sidebar = () => {
       </div>
 
       {/* Tabs de navegación */}
-      <div className="flex-1 overflow-hidden">
+      <div className="flex-1 flex flex-col min-h-0">
         <Tabs
           aria-label="Banco de imágenes"
-        
           onActiveTabChange={(tab) => setActiveTab(tab)}
-          className="h-full "
+          
         >
           <Tabs.Item active title="Banco Global" icon={HiGlobeAlt}>
-            <div className="flex-1 overflow-hidden">
+            <div className="h-[calc(100vh-200px)] overflow-hidden">
               <ImageBank type="global" />
             </div>
           </Tabs.Item>
 
           <Tabs.Item title="Tus Imágenes" icon={HiUser}>
-            <div className="flex-1 overflow-hidden">
+            <div className="h-[calc(100vh-200px)] overflow-hidden">
               <ImageBank type="personal" />
             </div>
           </Tabs.Item>

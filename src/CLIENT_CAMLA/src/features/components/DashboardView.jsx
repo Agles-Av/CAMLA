@@ -87,18 +87,20 @@ const DashboardView = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-pink-50">
+     <div className="h-screen flex flex-col bg-gradient-to-br from-purple-50 via-blue-50 to-pink-50">
+
       {/* Navbar superior */}
       <Navbar />
 
-      <div className="flex">
+      <div className="flex-1 min-h-0 flex">
         {/* Sidebar izquierdo - Banco de imágenes */}
-        <div className="w-80 bg-gradient-to-r from-indigo-200 to-purple-300 hover:from-indigo-300 hover:to-purple-200 shadow-lg border-r border-gray-200 h-screen sticky top-16">
+       <div className="w-80 bg-gradient-to-r from-indigo-200 to-purple-300 hover:from-indigo-300 hover:to-purple-200 shadow-lg border-r border-gray-200
+                   flex flex-col h-full min-h-0 overflow-hidden">
           <Sidebar />
         </div>
 
         {/* Panel principal derecho */}
-        <div className="flex-1 p-6 overflow-y-auto bg-gradient-to-r from-indigo-200 to-purple-300 hover:from-indigo-300 hover:to-purple-200">
+        <div className="flex-1 min-h-0 overflow-y-auto p-6 bg-gradient-to-r from-indigo-200 to-purple-300 hover:from-indigo-300 hover:to-purple-200">
           <div className="max-w-7xl mx-auto space-y-8">
 
             {/* Mensaje de bienvenida */}
