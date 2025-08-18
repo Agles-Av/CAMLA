@@ -14,35 +14,25 @@ public class FirebaseStorageService {
     private String bucketName;
 
     public String subirImagen(MultipartFile archivo, String nombrePersonalizado) throws IOException {
-
         try {
-            System.out.println(nombrePersonalizado+"\n"+ bucketName);
-            // Generar nombre único
+            // Generar nombre seguro
             String extension = obtenerExtension(archivo.getOriginalFilename());
-            String nombreArchivo = nombrePersonalizado + "_" + UUID.randomUUID().toString() + extension;
+            String nombreArchivo = nombrePersonalizado.replaceAll("[^a-zA-Z0-9]", "_")
+                    + "_" + UUID.randomUUID() + extension;
             String rutaCompleta = "imagenes/" + nombreArchivo;
 
-            // Obtener cliente de Storage
-            Storage storage = StorageClient.getInstance().bucket().getStorage();
+            // Obtener el bucket configurado
+            Bucket bucket = StorageClient.getInstance().bucket();
 
-            // Crear BlobInfo con metadatos
-            BlobId blobId = BlobId.of(bucketName, rutaCompleta);
-            BlobInfo blobInfo = BlobInfo.newBuilder(blobId)
-                    .setContentType(archivo.getContentType())
-                    .setCacheControl("public, max-age=31536000") // Cache por 1 año
-                    .build();
+            // Subir archivo directamente al bucket
+            Blob blob = bucket.create(rutaCompleta, archivo.getBytes(), archivo.getContentType());
 
-            // Subir archivo
-            Blob blob = storage.create(blobInfo, archivo.getBytes());
-
-            // Hacer público el archivo
+            // Hacerlo público
             blob.createAcl(Acl.of(Acl.User.ofAllUsers(), Acl.Role.READER));
 
-            // Generar URL pública
-            String urlPublica = String.format("https://storage.googleapis.com/%s/%s",
-                    bucketName, blob.getName());
-
-            return urlPublica;
+            // Devolver URL pública
+            return String.format("https://storage.googleapis.com/%s/%s",
+                    bucket.getName(), blob.getName());
 
         } catch (Exception e) {
             System.out.println("Error al subir imagen a Firebase Storage: " + e.getMessage());

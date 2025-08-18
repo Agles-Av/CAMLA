@@ -15,6 +15,7 @@ import org.springframework.core.io.ClassPathResource;
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 @Configuration
 
@@ -30,11 +31,9 @@ public class FirebaseConfig {
     public void initialize() {
         try {
             if (FirebaseApp.getApps().isEmpty()) {
-                System.out.println("inicializando firebase"+ storageBucket);
-
-                // Cargar credenciales desde resources
-                InputStream serviceAccount = new ClassPathResource(firebaseConfigPath).getInputStream();
-                GoogleCredentials credentials = GoogleCredentials.fromStream(serviceAccount);
+                GoogleCredentials credentials = GoogleCredentials
+                        .fromStream(new ClassPathResource(firebaseConfigPath).getInputStream())
+                        .createScoped(List.of("https://www.googleapis.com/auth/cloud-platform")); // <-- IMPORTANTE
 
                 FirebaseOptions options = FirebaseOptions.builder()
                         .setCredentials(credentials)
@@ -42,15 +41,13 @@ public class FirebaseConfig {
                         .build();
 
                 FirebaseApp.initializeApp(options);
-                System.out.println("Firebase inicializado");
-
-            } else {
-                System.out.println("Firebase ya está inicializado");
+                System.out.println("Firebase inicializado con bucket: " + storageBucket);
             }
         } catch (IOException e) {
-            System.out.println("Error"+ e);
+            System.out.println("Error al inicializar Firebase: " + e.getMessage());
             throw new RuntimeException("Error al inicializar Firebase", e);
         }
     }
+
 
 }
