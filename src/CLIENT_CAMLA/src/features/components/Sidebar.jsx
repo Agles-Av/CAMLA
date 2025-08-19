@@ -26,16 +26,15 @@ const Sidebar = () => {
         <Tabs
           aria-label="Banco de imágenes"
           onActiveTabChange={(tab) => setActiveTab(tab)}
-          className="h-full"
         >
           <Tabs.Item active title="Banco Global" icon={HiGlobeAlt}>
-            <div className="h-full overflow-y-auto">
+            <div className="overflow-y-auto">
               <ImageBank type="global" />
             </div>
           </Tabs.Item>
 
           <Tabs.Item title="Tus Imágenes" icon={HiUser}>
-            <div className="h-full overflow-y-auto">
+            <div className="overflow-y-auto">
               <ImageBank type="personal" />
             </div>
           </Tabs.Item>
